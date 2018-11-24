@@ -1,4 +1,4 @@
-require('../../src/Date')
+import '../../src/Date';
 
 it('2018/01/01 is week 1',() => {
   const date20180101 = new Date('2018/01/01')
