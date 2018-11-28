@@ -5,17 +5,18 @@ import Svg, {
   Rect,
 } from 'react-native-svg'
 import Date from './Date'
+import PixelaRect from './component/PixelaRect'
 
 const DOMParser = require('xmldom').DOMParser;
 
-let parsedData = {};
+const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/test-graph"
 
 class Pixela extends Component {
   constructor(props) {
     super(props)
-
-    if (props.svgXmlData) {
-      const xml = new DOMParser().parseFromString(props.svgXmlData, "image/svg+xml");
+    this.parsedData = {};
+    if (props.data) {
+      const xml = new DOMParser().parseFromString(props.data, "image/svg+xml");
       this.parseSvg(xml.childNodes)
     }
   }
@@ -34,9 +35,11 @@ class Pixela extends Component {
     for (let i = 0, l = nodes.length; i < l; i++) {
       const node = nodes[i]
       if (node.tagName == "rect" && this.hasDateAttribute(node)) {
-        const date = node.attributes[7].nodeValue,
-          count = node.attributes[6].nodeValue,
-          fill = node.attributes[5].nodeValue
+        const attrs = node.attributes,
+          date = attrs.getNamedItem("data-date").nodeValue,
+          count = attrs.getNamedItem("data-count").nodeValue,
+          fill = attrs.getNamedItem("fill").nodeValue
+        if (!date || !count || !fill) continue
         const dateObj = new Date(date),
           week = dateObj.getWeek(),
           year = dateObj.getWeekYear()
@@ -82,7 +85,6 @@ class Pixela extends Component {
   }
 
   buildColumn(x, colData) {
-    //console.log(colData)
     const y = 15, l = 7, ret = []
     for (let i = 0; i < l; i++) {
       ret.push(this.buildRect(x,y+12*i,colData ? colData[i] : undefined))
@@ -91,21 +93,16 @@ class Pixela extends Component {
   }
 
   buildRect(x, y, data) {
-    //console.log(data)
-    return (
-      <Rect x={x} y={y}
-        width="10"
-        height="10"
-        fill={data ? data.fill : "#eeeeee"}
-        key={data ? data.date : 10000 * x + y}
-      />
+    return PixelaRect(x, y, 
+        data ? data.fill : "#eeeeee",
+        data ? data.date : 10000 * x + y
     )
   }
 
   render() {
     return (
       <Svg height={300} width={300} viewBox="0 0 300 300">
-       {this.buildPixela(this.props.data)}          
+        {this.buildPixela(this.parsedData)}
       </Svg>
     )
   }

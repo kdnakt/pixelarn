@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import {
   StyleSheet,
+  Text,
   View
 } from 'react-native';
 import Pixela from './src/Pixela'
@@ -21,13 +22,23 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    fetch(svgurl).then(res => this.setState({svgXmlData:res._bodyText}))
+    fetch(svgurl).then(res => {
+      this.setState({svgXmlData:res._bodyText})
+    })
+  }
+
+  renderPixela() {
+    return this.state.svgXmlData ? (
+      <Pixela data={this.state.svgXmlData} />
+    ) : (
+      <Text>{"Loading.."}</Text>
+    )
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Pixela data={this.state.svgXmlData} />
+        {this.renderPixela()}
       </View>
     );
   }
