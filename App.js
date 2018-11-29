@@ -3,53 +3,16 @@
  * @flow
  */
 
-import React, {
-  Component
-} from 'react';
+import GraphScreen from './src/GraphScreen'
 import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import Pixela from './src/Pixela'
+  createStackNavigator,
+  createAppContainer
+} from "react-navigation";
 
-const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/test-graph"
-
-export default class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { svgXmlData: null}
-  }
-
-  componentDidMount() {
-    fetch(svgurl).then(res => {
-      this.setState({svgXmlData:res._bodyText})
-    })
-  }
-
-  renderPixela() {
-    return this.state.svgXmlData ? (
-      <Pixela data={this.state.svgXmlData} />
-    ) : (
-      <Text>{"Loading.."}</Text>
-    )
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.renderPixela()}
-      </View>
-    );
-  }
-
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+const AppNavigator = createStackNavigator({
+  Graph: {
+    screen: GraphScreen
   }
 });
+
+export default createAppContainer(AppNavigator);
