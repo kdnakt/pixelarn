@@ -1,9 +1,6 @@
 import React, {
   Component
 } from 'react'
-import Svg, {
-  Rect,
-} from 'react-native-svg'
 import Date from './Date'
 import PixelaRect from './component/PixelaRect'
 

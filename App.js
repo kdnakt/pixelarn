@@ -2,17 +2,23 @@
  * @format
  * @flow
  */
-
+import React from 'react'
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import GraphScreen from './src/GraphScreen'
-import {
-  createStackNavigator,
-  createAppContainer
-} from "react-navigation";
 
-const AppNavigator = createStackNavigator({
+const routes = {
   Graph: {
-    screen: GraphScreen
-  }
-});
+    screen: GraphScreen,
+  },
+};
 
-export default createAppContainer(AppNavigator);
+const config = {
+  initialRouteName: 'Graph',
+};
+
+const AppNavigator = createStackNavigator(routes, config);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default AppContainer;

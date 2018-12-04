@@ -11,3 +11,19 @@ it('renders correctly', () => {
 global.fetch = () => ({
   then: () => {}
 })
+
+jest.mock('react-native-svg', () => ({
+}));
+jest.mock('NativeModules', () => {
+  return {
+    UIManager: {
+      RCTView: {}
+    },
+    RNGestureHandlerModule: {
+      State: {},
+      attachGestureHandler: jest.fn(),
+      createGestureHandler: jest.fn()
+    },
+    KeyboardObserver: {}
+  } 
+})

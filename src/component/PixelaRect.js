@@ -1,23 +1,36 @@
-import React from 'react'
+import React, {
+  Component
+} from 'react'
 import {
   Rect,
 } from 'react-native-svg'
 
 const SIZE = "10"
 
-function PixelaRect(x: number, y: number,
-    fill: string, date: string) {
+type Props = {
+  x: number,
+  y: number,
+  fill: string,
+  date: string
+}
 
-  return (
-    <Rect
-      x={x}
-      y={y}
-      width={SIZE}
-      height={SIZE}
-      fill={fill}
-      key={date}
-    />
-  )
+class PixelaRect extends Component<Props> {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <Rect
+        x={this.props.x}
+        y={this.props.y}
+        width={SIZE}
+        height={SIZE}
+        fill={this.props.fill}
+        key={this.props.date}
+      />
+    )
+  }
 }
 
 export default PixelaRect
