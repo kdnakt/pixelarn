@@ -1,12 +1,14 @@
 import React, {
   Component
 } from 'react'
-import Svg from 'react-native-svg'
+import Svg, {
+  Rect,
+} from 'react-native-svg'
 import Date from './Date'
-import PixelaRect from './component/PixelaRect'
 
 const DOMParser = require('xmldom').DOMParser;
 
+const SIZE = "10"
 const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/test-graph"
 
 class Pixela extends Component {
@@ -53,6 +55,7 @@ class Pixela extends Component {
     for (let i = 0; i < l; i++) {
       ret.push(this.buildColumn(x+12*i, dataArray[dataArray.length - (i + 1)]))
     }
+    console.log(ret)
     return ret
   }
 
@@ -80,9 +83,15 @@ class Pixela extends Component {
   }
 
   buildRect(x, y, data) {
-    return PixelaRect(x, y, 
-        data ? data.fill : "#eeeeee",
-        data ? data.date : 10000 * x + y
+    return (
+      <Rect
+        x={x}
+        y={y}
+        width={SIZE}
+        height={SIZE}
+        fill={data ? data.fill : "#eeeeee"}
+        key={data ? data.date : 10000 * x + y}
+      />
     )
   }
 
