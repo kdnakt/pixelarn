@@ -71,7 +71,7 @@ exports[`renders correctly 1`] = `
             }
           >
             <Text>
-              Loading..
+              Loading ...
             </Text>
           </View>
         </View>
