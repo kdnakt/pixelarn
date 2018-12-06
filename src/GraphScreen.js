@@ -25,7 +25,7 @@ export default class GraphScreen extends Component {
     return this.state.svgXmlData ? (
       <Pixela data={this.state.svgXmlData} />
     ) : (
-      <Text>{"Loading.."}</Text>
+      <Text>{"Loading ..."}</Text>
     )
   }
 

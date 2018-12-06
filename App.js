@@ -8,9 +8,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import GraphScreen from './src/GraphScreen'
 
 const routes = {
-  Graph: {
-    screen: GraphScreen,
-  },
+  Graph: GraphScreen,
 };
 
 const config = {
@@ -21,4 +19,8 @@ const AppNavigator = createStackNavigator(routes, config);
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export default AppContainer;
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}

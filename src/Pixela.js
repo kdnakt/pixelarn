@@ -1,6 +1,7 @@
 import React, {
   Component
 } from 'react'
+import Svg from 'react-native-svg'
 import Date from './Date'
 import PixelaRect from './component/PixelaRect'
 
@@ -18,22 +19,11 @@ class Pixela extends Component {
     }
   }
 
-  hasDateAttribute(node) {
-    const attrs = node.attributes
-    for (let l = attrs.length; 0 < l; l--) {
-      if (attrs[l - 1].name == "data-date") {
-        return true
-      }
-    }
-    return false;
-  }
-
   parseSvg(nodes) {
     for (let i = 0, l = nodes.length; i < l; i++) {
-      const node = nodes[i]
-      if (node.tagName == "rect" && this.hasDateAttribute(node)) {
-        const attrs = node.attributes,
-          date = attrs.getNamedItem("data-date").nodeValue,
+      const node = nodes[i], attrs = node.attributes
+      if (node.tagName == "rect" && attrs.getNamedItem("data-date")) {
+        const date = attrs.getNamedItem("data-date").nodeValue,
           count = attrs.getNamedItem("data-count").nodeValue,
           fill = attrs.getNamedItem("fill").nodeValue
         if (!date || !count || !fill) continue
