@@ -8,14 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import {
+  type NavigationScreenProp,
+} from 'react-navigation/src/TypeDefinition';
 
 const graphsUrl = "https://pixe.la/v1/users/kdnakt/graphs"
 
-export default class GraphListScreen extends Component {
+type Prop = {
+  navigation: NavigationScreenProp<*>,
+}
 
-  constructor(props) {
+export default class GraphListScreen extends Component<Prop> {
+
+  constructor(props: Prop) {
     super(props)
-    this.state = {graphs: [{key: 'a'}, {key: 'b'}]}
+    this.state = {graphs: []}
   }
 
   componentDidMount() {
@@ -29,8 +36,9 @@ export default class GraphListScreen extends Component {
     })
   }
 
-  _onPress(id) {
-    console.log(this.children._owner.key)
+  _onPress(item) {
+    const { navigation } = this.props;
+    navigation.navigate('Graph', { graphId: item.id });
   }
 
   render() {
@@ -40,7 +48,7 @@ export default class GraphListScreen extends Component {
           data={this.state.graphs}
           keyExtractor={(item, index) => item.id}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={this._onPress}>
+            <TouchableOpacity onPress={() => this._onPress(item)}>
               <Text style={styles.text}>{item.name}</Text>
             </TouchableOpacity>
           )}

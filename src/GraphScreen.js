@@ -7,16 +7,22 @@ import {
   View
 } from 'react-native';
 import Pixela from './Pixela'
-const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/test-graph"
+const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/"
 
-export default class GraphScreen extends Component {
+type Prop = {
+  navigation: NavigationScreenProp<*>,
+}
+
+export default class GraphScreen extends Component<Prop> {
   constructor(props) {
     super(props)
     this.state = { svgXmlData: null}
   }
 
   componentDidMount() {
-    fetch(svgurl).then(res => {
+    const { navigation } = this.props,
+      id = navigation.getParam('graphId')
+    fetch(svgurl + id).then(res => {
       this.setState({svgXmlData:res._bodyText})
     })
   }

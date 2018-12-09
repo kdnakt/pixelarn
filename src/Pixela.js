@@ -9,7 +9,6 @@ import Date from './Date'
 const DOMParser = require('xmldom').DOMParser;
 
 const SIZE = "10"
-const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/test-graph"
 
 class Pixela extends Component {
   constructor(props) {
