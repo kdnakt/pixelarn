@@ -22,14 +22,14 @@ export default class GraphListScreen extends Component<Prop> {
 
   constructor(props: Prop) {
     super(props)
-    this.state = {graphs: []}
+    this.state = {graphs: [{id: 'loading', name: 'Loading...'}]}
   }
 
   componentDidMount() {
     fetch(graphsUrl, {
       method: 'GET',
       headers: {
-        'X-USER-TOKEN': 'myusertoken'
+        'X-USER-TOKEN': 'kdnaktkdnakt'
       }
     }).then(res => {
       this.setState(JSON.parse(res._bodyText))
@@ -37,8 +37,9 @@ export default class GraphListScreen extends Component<Prop> {
   }
 
   _onPress(item) {
+    if (item.id == 'loading') return
     const { navigation } = this.props;
-    navigation.navigate('Graph', { graphId: item.id });
+    navigation.navigate('Graph', { graphId: item.id, name: item.name });
   }
 
   render() {

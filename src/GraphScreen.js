@@ -36,8 +36,11 @@ export default class GraphScreen extends Component<Prop> {
   }
 
   render() {
+    const { navigation } = this.props,
+      name = navigation.getParam('name')
     return (
       <View style={styles.container}>
+        <Text>{name}</Text>
         {this.renderPixela()}
       </View>
     );
