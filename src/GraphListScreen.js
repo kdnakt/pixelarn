@@ -29,7 +29,7 @@ export default class GraphListScreen extends Component<Prop> {
     fetch(graphsUrl, {
       method: 'GET',
       headers: {
-        'X-USER-TOKEN': 'kdnaktkdnakt'
+        'X-USER-TOKEN': 'myusertoken'
       }
     }).then(res => {
       this.setState(JSON.parse(res._bodyText))
