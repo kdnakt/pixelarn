@@ -1,6 +1,11 @@
 import React, {
-  Component
+  Component,
 } from 'react'
+import {
+  Text,
+  StyleSheet,
+  View,
+} from 'react-native'
 import Svg, {
   Rect,
 } from 'react-native-svg'
@@ -10,14 +15,17 @@ const DOMParser = require('xmldom').DOMParser;
 
 const SIZE = "10"
 
-class Pixela extends Component {
+type Prop = {
+  data: string,
+  name: string,
+}
+
+class Pixela extends Component<Prop> {
   constructor(props) {
     super(props)
     this.parsedData = {};
-    if (props.data) {
-      const xml = new DOMParser().parseFromString(props.data, "image/svg+xml");
-      this.parseSvg(xml.childNodes)
-    }
+    const xml = new DOMParser().parseFromString(props.data, "image/svg+xml");
+    this.parseSvg(xml.childNodes)
   }
 
   parseSvg(nodes) {
@@ -54,7 +62,6 @@ class Pixela extends Component {
     for (let i = 0; i < l; i++) {
       ret.push(this.buildColumn(x+12*i, dataArray[dataArray.length - (i + 1)]))
     }
-    console.log(ret)
     return ret
   }
 
@@ -96,11 +103,23 @@ class Pixela extends Component {
 
   render() {
     return (
-      <Svg height={300} width={300} viewBox="0 0 300 300">
-        {this.buildPixela(this.parsedData)}
-      </Svg>
+      <View style={styles.container}>
+        <Text>{this.props.name}</Text>
+        <Svg height={300} width={300} viewBox="0 0 300 300">
+          {this.buildPixela(this.parsedData)}
+        </Svg>
+      </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  }
+});
 
 export default Pixela

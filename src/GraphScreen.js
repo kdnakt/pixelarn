@@ -16,32 +16,40 @@ type Prop = {
 export default class GraphScreen extends Component<Prop> {
   constructor(props) {
     super(props)
-    this.state = { svgXmlData: null}
+    this.state = {
+        svgXmlData: null,
+        isSuccessful: true,
+    }
   }
 
   componentDidMount() {
     const { navigation } = this.props,
       id = navigation.getParam('graphId')
     fetch(svgurl + id).then(res => {
-      this.setState({svgXmlData:res._bodyText})
+      this.setState({
+          svgXmlData: res._bodyText,
+          isSuccessful: res.ok,
+      })
     })
   }
 
   renderPixela() {
     return this.state.svgXmlData ? (
-      <Pixela data={this.state.svgXmlData} />
+      <Pixela
+        data={this.state.svgXmlData}
+        name={this.props.navigation.getParam('name')}
+      />
     ) : (
       <Text>{"Loading ..."}</Text>
     )
   }
 
   render() {
-    const { navigation } = this.props,
-      name = navigation.getParam('name')
     return (
       <View style={styles.container}>
-        <Text>{name}</Text>
-        {this.renderPixela()}
+        {!this.state.isSuccessful ? (
+          <Text>{JSON.parse(this.state.svgXmlData).message}</Text>
+        ) : this.renderPixela()}
       </View>
     );
   }
