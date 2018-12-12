@@ -2,7 +2,6 @@ import React, {
   Component,
 } from 'react'
 import {
-  Text,
   StyleSheet,
   View,
 } from 'react-native'
@@ -17,7 +16,6 @@ const SIZE = "10"
 
 type Prop = {
   data: string,
-  name: string,
 }
 
 class Pixela extends Component<Prop> {
@@ -104,7 +102,6 @@ class Pixela extends Component<Prop> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.props.name}</Text>
         <Svg height={300} width={300} viewBox="0 0 300 300">
           {this.buildPixela(this.parsedData)}
         </Svg>

@@ -19,6 +19,11 @@ type Prop = {
 }
 
 export default class GraphListScreen extends Component<Prop> {
+  static navigationOptions = () => {
+    return {
+        title: 'GRAPH LIST'
+    }
+  }
 
   constructor(props: Prop) {
     super(props)

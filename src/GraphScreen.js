@@ -14,6 +14,13 @@ type Prop = {
 }
 
 export default class GraphScreen extends Component<Prop> {
+  static navigationOptions = ({navigation}) => {
+    const { name } = navigation.state.params;
+    return {
+        title: name
+    }
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -37,7 +44,6 @@ export default class GraphScreen extends Component<Prop> {
     return this.state.svgXmlData ? (
       <Pixela
         data={this.state.svgXmlData}
-        name={this.props.navigation.getParam('name')}
       />
     ) : (
       <Text>{"Loading ..."}</Text>
