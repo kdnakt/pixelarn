@@ -29,7 +29,7 @@ export default class GraphListScreen extends Component<Prop> {
     super(props)
     this.state = {
         graphs: [{id: 'loading', name: 'Loading...'}],
-        isSuccessful: true
+        isSuccess: true
     }
   }
 
@@ -53,7 +53,7 @@ export default class GraphListScreen extends Component<Prop> {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.isSuccessful ? (
+        {this.state.isSuccess ? (
         <FlatList
           data={this.state.graphs}
           keyExtractor={(item, index) => item.id}
