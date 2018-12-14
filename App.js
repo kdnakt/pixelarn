@@ -7,14 +7,16 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import GraphScreen from './src/GraphScreen'
 import GraphListScreen from './src/GraphListScreen';
+import LoginScreen from './src/LoginScreen';
 
 const routes = {
   Graph: GraphScreen,
   GraphList: GraphListScreen,
+  Login: LoginScreen,
 };
 
 const config = {
-  initialRouteName: 'GraphList',
+  initialRouteName: 'Login',
 };
 
 const AppNavigator = createStackNavigator(routes, config);
