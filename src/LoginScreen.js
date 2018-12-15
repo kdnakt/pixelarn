@@ -11,6 +11,13 @@ import {
 } from 'react-native'
 
 export default class LoginScreen extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userId: null,
+      userToken: null,
+    }
+  }
 
   _send() {
     Alert.alert(`UserId: ${this.state.userId}, Token: ${this.state.userToken}`)
@@ -31,6 +38,7 @@ export default class LoginScreen extends Component {
         <Button
           title="Send"
           onPress={() => this._send()}
+          disabled={!this.state.userId || !this.state.userToken}
         />
       </View>
     )
