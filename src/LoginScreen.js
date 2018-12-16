@@ -20,7 +20,21 @@ export default class LoginScreen extends Component {
   }
 
   _send() {
-    Alert.alert(`UserId: ${this.state.userId}, Token: ${this.state.userToken}`)
+//    Alert.alert(`UserId: ${this.state.userId}, Token: ${this.state.userToken}`)
+
+    fetch(`https://pixe.la/v1/users/${this.state.userId}/graphs`, {
+      method: 'GET',
+      headers: {
+        'X-USER-TOKEN': `${this.state.userToken}`
+      }
+    }).then(res => {
+      if (res.ok) {
+        const { navigation } = this.props;
+        navigation.navigate('GraphList', JSON.parse(res._bodyText));
+      } else {
+        Alert.alert(JSON.parse(res._bodyText).message)
+      }
+    })
   }
 
   render() {
@@ -33,6 +47,7 @@ export default class LoginScreen extends Component {
         />
         <TextInput
           placeholder={"User token"}
+          secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
         />
         <Button

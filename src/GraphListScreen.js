@@ -27,21 +27,6 @@ export default class GraphListScreen extends Component<Prop> {
 
   constructor(props: Prop) {
     super(props)
-    this.state = {
-        graphs: [{id: 'loading', name: 'Loading...'}],
-        isSuccess: true
-    }
-  }
-
-  componentDidMount() {
-    fetch(graphsUrl, {
-      method: 'GET',
-      headers: {
-        'X-USER-TOKEN': 'myusertoken'
-      }
-    }).then(res => {
-      this.setState(JSON.parse(res._bodyText))
-    })
   }
 
   _onPress(item) {
@@ -51,11 +36,12 @@ export default class GraphListScreen extends Component<Prop> {
   }
 
   render() {
+    const { navigation } = this.props,
+      graphs = navigation.getParam('graphs')
     return (
       <View style={styles.container}>
-        {this.state.isSuccess ? (
         <FlatList
-          data={this.state.graphs}
+          data={graphs}
           keyExtractor={(item, index) => item.id}
           renderItem={({item}) => (
             <TouchableOpacity onPress={() => this._onPress(item)}>
@@ -63,9 +49,6 @@ export default class GraphListScreen extends Component<Prop> {
             </TouchableOpacity>
           )}
         />
-        ) : (
-        <Text>{this.state.message}</Text>
-        )}
       </View>
     )
   }
