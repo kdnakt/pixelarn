@@ -51,7 +51,7 @@ export default class LoginScreen extends Component {
           onChangeText={(text) => this.setState({userToken:text})}
         />
         <Button
-          title="Send"
+          title="Login"
           onPress={() => this._send()}
           disabled={!this.state.userId || !this.state.userToken}
         />
