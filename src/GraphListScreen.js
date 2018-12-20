@@ -2,6 +2,7 @@ import React, {
   Component,
 } from 'react'
 import {
+  Button,
   FlatList,
   StyleSheet,
   Text,
@@ -11,18 +12,23 @@ import {
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
-
-const graphsUrl = "https://pixe.la/v1/users/kdnakt/graphs"
+import LoginStore from './LoginStore';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
 }
 
 export default class GraphListScreen extends Component<Prop> {
-  static navigationOptions = () => {
+  static navigationOptions = ({navigation}) => {
     return {
         title: 'GRAPH LIST',
         headerLeft: null,
+        headerRight: (
+          <Button
+            title="New Graph"
+            onPress={() => navigation.navigate('GraphEdit')}
+          />
+        )
     }
   }
 
@@ -37,8 +43,7 @@ export default class GraphListScreen extends Component<Prop> {
   }
 
   render() {
-    const { navigation } = this.props,
-      graphs = navigation.getParam('graphs')
+    const graphs = LoginStore.getGraphs()
     return (
       <View style={styles.container}>
         <FlatList

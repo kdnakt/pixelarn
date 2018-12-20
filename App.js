@@ -6,11 +6,13 @@ import React from 'react'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import GraphScreen from './src/GraphScreen'
+import GraphEditScreen from './src/GraphEditScreen';
 import GraphListScreen from './src/GraphListScreen';
 import LoginScreen from './src/LoginScreen';
 
 const routes = {
   Graph: GraphScreen,
+  GraphEdit: GraphEditScreen,
   GraphList: GraphListScreen,
   Login: LoginScreen,
 };

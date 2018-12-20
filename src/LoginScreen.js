@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
 } from 'react-native'
+import LoginStore from './LoginStore'
 
 export default class LoginScreen extends Component {
   constructor(props) {
@@ -20,8 +21,6 @@ export default class LoginScreen extends Component {
   }
 
   _send() {
-//    Alert.alert(`UserId: ${this.state.userId}, Token: ${this.state.userToken}`)
-
     fetch(`https://pixe.la/v1/users/${this.state.userId}/graphs`, {
       method: 'GET',
       headers: {
@@ -29,8 +28,11 @@ export default class LoginScreen extends Component {
       }
     }).then(res => {
       if (res.ok) {
-        const { navigation } = this.props;
-        navigation.navigate('GraphList', JSON.parse(res._bodyText));
+        LoginStore.setUserId(this.state.userId)
+        LoginStore.setUserToken(this.state.userToken)
+        LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
+        const { navigation } = this.props
+        navigation.navigate('GraphList')
       } else {
         Alert.alert(JSON.parse(res._bodyText).message)
       }

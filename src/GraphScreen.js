@@ -7,7 +7,8 @@ import {
   View
 } from 'react-native';
 import Pixela from './Pixela'
-const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/"
+import LoginStore from './LoginStore'
+//const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/"
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -32,12 +33,13 @@ export default class GraphScreen extends Component<Prop> {
   componentDidMount() {
     const { navigation } = this.props,
       id = navigation.getParam('graphId')
-    fetch(svgurl + id).then(res => {
-      this.setState({
-          svgXmlData: res._bodyText,
-          isSuccessful: res.ok,
-      })
-    })
+    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/` + id)
+        .then(res => {
+          this.setState({
+              svgXmlData: res._bodyText,
+              isSuccessful: res.ok,
+          })
+        })
   }
 
   renderPixela() {
