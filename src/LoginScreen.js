@@ -45,6 +45,7 @@ export default class LoginScreen extends Component {
         <Text>{"Enter user id and token."}</Text>
         <TextInput
           placeholder={"User id"}
+          autoCapitalize={false}
           onChangeText={(text) => this.setState({userId:text})}
         />
         <TextInput
