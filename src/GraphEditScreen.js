@@ -2,6 +2,7 @@ import React, {
   Component,
 } from 'react'
 import {
+  Alert,
   Button,
   StyleSheet,
   TextInput,
@@ -55,7 +56,7 @@ export default class GraphEditScreen extends Component<Prop> {
         const { navigation } = this.props
         navigation.navigate('GraphList');
       } else {
-        console.log(res)
+        Alert.alert(JSON.parse(res._bodyText).message)
       }
     })
   }
@@ -68,6 +69,7 @@ export default class GraphEditScreen extends Component<Prop> {
         <TextInput
           placeholder={"graphid"}
           maxLength={16}
+          autoCapitalize={"none"}
           keyboardType={"ascii-capable"}
           onChangeText={(text) => this.setState({graphId:text})}
         />
