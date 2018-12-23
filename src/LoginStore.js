@@ -17,6 +17,9 @@ var LoginStore = {
     addGraphCallbacks.forEach(cb => cb(myGraphs))
   },
   onAddGraph: (callback) => addGraphCallbacks.push(callback),
+  removeGraph: (graphId) => {
+    myGraphs = myGraphs.filter(g => g.id == graphId)
+  },
   getGraphs: () => myGraphs,
 }
 

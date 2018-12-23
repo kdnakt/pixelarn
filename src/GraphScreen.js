@@ -2,6 +2,8 @@ import React, {
   Component
 } from 'react'
 import {
+  Alert,
+  Button,
   StyleSheet,
   Text,
   View
@@ -18,7 +20,37 @@ export default class GraphScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     const { name } = navigation.state.params;
     return {
-        title: name
+        title: name,
+        headerRight: (
+          <Button
+            title="Delete"
+            style={{color:"red"}}
+            onPress={() => {
+              Alert.alert(
+                "Delete",
+                `Are you sure to delete this graph: ${name}?`,
+                [
+                  {text: "Delete", onPress: () => {
+                    const id = navigation.getParam("graphId")
+                    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}`, {
+                      method: 'DELETE',
+                      headers: {
+                        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
+                      },
+                    }).then(res => {
+                      if (res.ok) {
+                        Alert.alert(JSON.parse(res._bodyText).message)
+                        LoginStore.removeGraph(id)
+                        navigation.navigate('GraphList')
+                      }
+                    })
+                  }},
+                  {text: "Cancel", onPress: () => Alert.alert("cancelled")}
+                ]
+              )
+            }}
+          />
+        )
     }
   }
 
