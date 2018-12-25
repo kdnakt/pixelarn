@@ -8,6 +8,7 @@ import {
   Text,
   View
 } from 'react-native';
+import DatePicker from 'react-native-datepicker'
 import Pixela from './Pixela'
 import LoginStore from './LoginStore'
 //const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/"
@@ -41,7 +42,7 @@ export default class GraphScreen extends Component<Prop> {
                       if (res.ok) {
                         Alert.alert(JSON.parse(res._bodyText).message)
                         LoginStore.removeGraph(id)
-                        navigation.navigate('GraphList')
+                        navigation.goBack()
                       }
                     })
                   }},
@@ -76,9 +77,16 @@ export default class GraphScreen extends Component<Prop> {
 
   renderPixela() {
     return this.state.svgXmlData ? (
-      <Pixela
-        data={this.state.svgXmlData}
-      />
+      <View>
+        <Pixela
+          data={this.state.svgXmlData}
+        />
+        <DatePicker
+          format={"YYYY-MM-DD"}
+          mode="date"
+          style={styles.datepicker}
+        />
+      </View>
     ) : (
       <Text>{"Loading ..."}</Text>
     )
@@ -101,6 +109,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  datepicker: {
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    //margin: '40%'
+    //flex: 1,
+    //
+    top: -100
   }
 });
   

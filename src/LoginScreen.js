@@ -3,12 +3,15 @@ import React, {
 } from 'react'
 import {
   Alert,
-  Button,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native'
+import {
+  Button,
+  FormLabel,
+  FormInput,
+} from 'react-native-elements'
 import LoginStore from './LoginStore'
 
 export default class LoginScreen extends Component {
@@ -43,18 +46,21 @@ export default class LoginScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>{"Enter user id and token."}</Text>
-        <TextInput
+        <FormLabel>User Id</FormLabel>
+        <FormInput
           placeholder={"User id"}
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
         />
-        <TextInput
+        <FormLabel>User Token</FormLabel>
+        <FormInput
           placeholder={"User token"}
           secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
         />
         <Button
           title="Login"
+          backgroundColor={'#00aced'}
           onPress={() => this._send()}
           disabled={!this.state.userId || !this.state.userToken}
         />

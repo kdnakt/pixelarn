@@ -34,9 +34,6 @@ export default class GraphListScreen extends Component<Prop> {
 
   constructor(props: Prop) {
     super(props)
-    this.state = {
-      graphs: LoginStore.getGraphs()
-    }
   }
 
   _onPress(item) {
@@ -45,16 +42,8 @@ export default class GraphListScreen extends Component<Prop> {
     navigation.navigate('Graph', { graphId: item.id, name: item.name });
   }
 
-  componentDidMount() {
-    LoginStore.onAddGraph((graphs) => this._onChange(graphs))
-  }
-
-  _onChange(graphs) {
-    this.setState({graphs: graphs})
-  }
-
   render() {
-    const graphs = this.state.graphs
+    const graphs = LoginStore.getGraphs()
     return (
       <View style={styles.container}>
         <FlatList

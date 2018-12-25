@@ -54,7 +54,7 @@ export default class GraphEditScreen extends Component<Prop> {
         })
         console.log(LoginStore.getGraphs())
         const { navigation } = this.props
-        navigation.navigate('GraphList');
+        navigation.goBack();
       } else {
         Alert.alert(JSON.parse(res._bodyText).message)
       }
