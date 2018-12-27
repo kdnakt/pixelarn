@@ -50,6 +50,7 @@ export default class GraphListScreen extends Component<Prop> {
         leftIcon={{name: 'apps'}}
         title={item.name}
         key={item.id}
+        onPress={() => this._onPress(item)}
       />
     )
   }
@@ -62,7 +63,7 @@ export default class GraphListScreen extends Component<Prop> {
           <FlatList
             data={graphs}
             keyExtractor={(item, index) => item.id}
-            renderItem={this.renderItem}
+            renderItem={(item) => this.renderItem(item)}
           />
         </List>
       </View>
