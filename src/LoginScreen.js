@@ -4,7 +4,6 @@ import React, {
 import {
   Alert,
   StyleSheet,
-  Dimensions,
   View,
 } from 'react-native'
 import {
