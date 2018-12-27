@@ -4,7 +4,7 @@ import React, {
 import {
   Alert,
   StyleSheet,
-  Text,
+  Dimensions,
   View,
 } from 'react-native'
 import {
@@ -12,9 +12,22 @@ import {
   FormLabel,
   FormInput,
 } from 'react-native-elements'
+import {
+  type NavigationScreenProp,
+} from 'react-navigation/src/TypeDefinition'
 import LoginStore from './LoginStore'
 
-export default class LoginScreen extends Component {
+type Prop = {
+  navigation: NavigationScreenProp<*>,
+}
+
+export default class LoginScreen extends Component<Prop> {
+  static navigationOptions = ({navigation}) => {
+    return {
+        title: "Pixelarn"
+    }
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -45,21 +58,21 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{"Enter user id and token."}</Text>
         <FormLabel>User Id</FormLabel>
         <FormInput
-          placeholder={"User id"}
+          placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
         />
         <FormLabel>User Token</FormLabel>
         <FormInput
-          placeholder={"User token"}
+          placeholder={"Please enter your user token"}
           secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
         />
         <Button
           title="Login"
+          large
           backgroundColor={'#00aced'}
           onPress={() => this._send()}
           disabled={!this.state.userId || !this.state.userToken}
@@ -69,14 +82,8 @@ export default class LoginScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    margin: 10,
+    margin: "5% 30%"
   }
 });

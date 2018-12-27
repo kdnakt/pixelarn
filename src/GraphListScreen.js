@@ -10,6 +10,10 @@ import {
   View,
 } from 'react-native'
 import {
+  List,
+  ListItem
+} from 'react-native-elements'
+import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
 import LoginStore from './LoginStore';
@@ -42,19 +46,27 @@ export default class GraphListScreen extends Component<Prop> {
     navigation.navigate('Graph', { graphId: item.id, name: item.name });
   }
 
+  renderItem({item}) {
+    return (
+      <ListItem
+        leftIcon={{name: 'apps'}}
+        title={item.name}
+        key={item.id}
+      />
+    )
+  }
+
   render() {
     const graphs = LoginStore.getGraphs()
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={graphs}
-          keyExtractor={(item, index) => item.id}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => this._onPress(item)}>
-              <Text style={styles.text}>{item.name}</Text>
-            </TouchableOpacity>
-          )}
-        />
+      <View>
+        <List>
+          <FlatList
+            data={graphs}
+            keyExtractor={(item, index) => item.id}
+            renderItem={this.renderItem}
+          />
+        </List>
       </View>
     )
   }

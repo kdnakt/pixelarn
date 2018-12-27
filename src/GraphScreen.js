@@ -8,6 +8,9 @@ import {
   Text,
   View
 } from 'react-native';
+import {
+  type NavigationScreenProp,
+} from 'react-navigation/src/TypeDefinition'
 import DatePicker from 'react-native-datepicker'
 import Pixela from './Pixela'
 import LoginStore from './LoginStore'
