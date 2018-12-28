@@ -9,12 +9,14 @@ import {
   View
 } from 'react-native';
 import {
+  Card,
+} from 'react-native-elements'
+import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition'
 import DatePicker from 'react-native-datepicker'
 import Pixela from './Pixela'
 import LoginStore from './LoginStore'
-//const svgurl = "https://pixe.la/v1/users/kdnakt/graphs/"
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -24,7 +26,6 @@ export default class GraphScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     const { name } = navigation.state.params;
     return {
-        title: name,
         headerRight: (
           <Button
             title="Delete"
@@ -80,7 +81,9 @@ export default class GraphScreen extends Component<Prop> {
 
   renderPixela() {
     return this.state.svgXmlData ? (
-      <View>
+      <Card
+        title={this.props.navigation.getParam('name')}
+      >
         <Pixela
           data={this.state.svgXmlData}
         />
@@ -89,9 +92,11 @@ export default class GraphScreen extends Component<Prop> {
           mode="date"
           style={styles.datepicker}
         />
-      </View>
+      </Card>
     ) : (
-      <Text>{"Loading ..."}</Text>
+      <Text style={styles.text}>
+        {"Loading ..."}
+      </Text>
     )
   }
 
@@ -108,18 +113,14 @@ export default class GraphScreen extends Component<Prop> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   datepicker: {
-    //justifyContent: 'center',
-    //alignItems: 'center',
-    //margin: '40%'
-    //flex: 1,
-    //
     top: -100
+  },
+  text: {
+    margin: 100,
+    alignItems: 'center',
   }
 });
   

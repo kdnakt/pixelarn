@@ -1,10 +1,6 @@
 import React, {
   Component,
 } from 'react'
-import {
-  StyleSheet,
-  View,
-} from 'react-native'
 import Svg, {
   Rect,
 } from 'react-native-svg'
@@ -101,22 +97,12 @@ class Pixela extends Component<Prop> {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Svg height={300} width={300} viewBox="0 0 300 300">
-          {this.buildPixela(this.parsedData)}
-        </Svg>
-      </View>
+      <Svg height={300} width={300} viewBox="0 0 300 300">
+        {this.buildPixela(this.parsedData)}
+      </Svg>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
-});
 
 export default Pixela
