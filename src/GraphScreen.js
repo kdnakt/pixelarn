@@ -3,13 +3,13 @@ import React, {
 } from 'react'
 import {
   Alert,
-  Button,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 import {
   Card,
+  Button
 } from 'react-native-elements'
 import {
   type NavigationScreenProp,
@@ -91,6 +91,10 @@ export default class GraphScreen extends Component<Prop> {
           format={"YYYY-MM-DD"}
           mode="date"
           style={styles.datepicker}
+        />
+        <Button
+          title="Commit"
+          large
         />
       </Card>
     ) : (
