@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import {
   Alert,
+  Button as Btn,
   StyleSheet,
   Text,
   View
@@ -27,9 +28,9 @@ export default class GraphScreen extends Component<Prop> {
     const { name } = navigation.state.params;
     return {
         headerRight: (
-          <Button
+          <Btn
             title="Delete"
-            //style={{color:"red"}}
+            style={{color:"red"}}
             onPress={() => {
               Alert.alert(
                 "Delete",
