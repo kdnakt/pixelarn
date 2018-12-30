@@ -29,7 +29,7 @@ export default class GraphScreen extends Component<Prop> {
         headerRight: (
           <Button
             title="Delete"
-            style={{color:"red"}}
+            //style={{color:"red"}}
             onPress={() => {
               Alert.alert(
                 "Delete",

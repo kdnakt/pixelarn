@@ -42,7 +42,7 @@ class Pixela extends Component<Prop> {
         this.parsedData[year][week][this.parsedData[year][week].length] = {date: date, count: count, fill: fill}
         continue
       }
-      if (node.childNodes) {
+      if (node.childNodes && node.childNodes.length) {
         this.parseSvg(node.childNodes)
       }
     }
@@ -62,6 +62,7 @@ class Pixela extends Component<Prop> {
   buildDataArray(orgData, year, l) {
     const ret = []
     if (!orgData) return ret
+    if (!orgData[year]) year--
     let thisYearCount = 0;
     for (let i = 0; i < l; i++) {
       if (orgData[year].length - i > 0) {
