@@ -10,42 +10,9 @@ const DOMParser = require('xmldom').DOMParser;
 
 const SIZE = "10"
 
-type Prop = {
-  data: string,
-}
-
-class Pixela extends Component<Prop> {
+class Pixela extends Component {
   constructor(props) {
     super(props)
-    this.parsedData = {};
-    const xml = new DOMParser().parseFromString(props.data, "image/svg+xml");
-    this.parseSvg(xml.childNodes)
-  }
-
-  parseSvg(nodes) {
-    for (let i = 0, l = nodes.length; i < l; i++) {
-      const node = nodes[i], attrs = node.attributes
-      if (node.tagName == "rect" && attrs.getNamedItem("data-date")) {
-        const date = attrs.getNamedItem("data-date").nodeValue,
-          count = attrs.getNamedItem("data-count").nodeValue,
-          fill = attrs.getNamedItem("fill").nodeValue
-        if (!date || !count || !fill) continue
-        const dateObj = new Date(date),
-          week = dateObj.getWeek(),
-          year = dateObj.getWeekYear()
-        if (!this.parsedData[year]) {
-          this.parsedData[year] = []
-        }
-        if (!this.parsedData[year][week]) {
-          this.parsedData[year][week] = []
-        }
-        this.parsedData[year][week][this.parsedData[year][week].length] = {date: date, count: count, fill: fill}
-        continue
-      }
-      if (node.childNodes && node.childNodes.length) {
-        this.parseSvg(node.childNodes)
-      }
-    }
   }
 
   buildPixela(orgData) {
@@ -99,7 +66,7 @@ class Pixela extends Component<Prop> {
   render() {
     return (
       <Svg height={300} width={300} viewBox="0 0 300 300">
-        {this.buildPixela(this.parsedData)}
+        {this.buildPixela(this.props.data)}
       </Svg>
     )
   }

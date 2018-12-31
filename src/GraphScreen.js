@@ -18,6 +18,7 @@ import {
 import DatePicker from 'react-native-datepicker'
 import Pixela from './Pixela'
 import LoginStore from './LoginStore'
+import PixelaParser from './PixelaParser'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -29,7 +30,7 @@ export default class GraphScreen extends Component<Prop> {
     return {
         headerRight: (
           <Btn
-            title="Delete"
+            title="Delete Graph"
             style={{color:"red"}}
             onPress={() => {
               Alert.alert(
@@ -62,22 +63,65 @@ export default class GraphScreen extends Component<Prop> {
 
   constructor(props) {
     super(props)
+    today = new Date()
     this.state = {
         svgXmlData: null,
         isSuccessful: true,
+        targetDate: today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
     }
   }
 
   componentDidMount() {
+    this.load()
+  }
+
+  load() {
     const { navigation } = this.props,
       id = navigation.getParam('graphId')
     fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/` + id)
         .then(res => {
           this.setState({
-              svgXmlData: res._bodyText,
+              svgXmlData: res.ok ? PixelaParser.parse(res._bodyText) : JSON.parse(res._bodyText),
               isSuccessful: res.ok,
           })
         })
+  }
+
+  _getNewQuantity() {
+    const svgData = this.state.svgXmlData
+    for (const year in svgData) {
+      for (let week = svgData[year].length - 1; 0 < week; week--) {
+        for (const i in svgData[year][week]) {
+          const data = svgData[year][week][i]
+          if (data.date == this.state.targetDate) {
+            return data.count -(-1)// string結合よけ
+          }
+        }
+      }
+    }
+    return 1//とりあえず1
+  }
+
+  _commit() {
+    const { navigation } = this.props,
+      id = navigation.getParam('graphId'),
+      date = this.state.targetDate.replace("-","").replace("-","")
+    const body = {
+      quantity: String(this._getNewQuantity())
+    }
+    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}/${date}`, {
+      method: 'PUT',
+      headers: {
+        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
+      },
+      body: JSON.stringify(body),
+    }).then(res => {
+      console.log(res)
+      if (JSON.parse(res._bodyText).isSuccess) {
+        console.log("commit done")
+        this.load()
+      }
+    })
   }
 
   renderPixela() {
@@ -91,11 +135,16 @@ export default class GraphScreen extends Component<Prop> {
         <DatePicker
           format={"YYYY-MM-DD"}
           mode="date"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
           style={styles.datepicker}
+          date={this.state.targetDate}
+          onDateChange={(dateStr) => this.setState({targetDate: dateStr})}
         />
         <Button
           title="Commit"
           large
+          onPress={() => this._commit()}
         />
       </Card>
     ) : (
@@ -109,7 +158,7 @@ export default class GraphScreen extends Component<Prop> {
     return (
       <View style={styles.container}>
         {!this.state.isSuccessful ? (
-          <Text>{JSON.parse(this.state.svgXmlData).message}</Text>
+          <Text>{this.state.svgXmlData.message}</Text>
         ) : this.renderPixela()}
       </View>
     );
