@@ -102,10 +102,20 @@ export default class GraphScreen extends Component<Prop> {
     return 1//とりあえず1
   }
 
+  _getTargetDate() {
+    const date = new Date(this.state.targetDate),
+      y = date.getFullYear(),
+      m = date.getMonth() + 1,
+      d = date.getDate()
+    return "" + y
+        + (m < 10 ? "0" + m : m)
+        + (d < 10 ? "0" + d : d)
+  }
+
   _commit() {
     const { navigation } = this.props,
       id = navigation.getParam('graphId'),
-      date = this.state.targetDate.replace("-","").replace("-","")
+      date = this._getTargetDate()
     const body = {
       quantity: String(this._getNewQuantity())
     }
@@ -116,9 +126,7 @@ export default class GraphScreen extends Component<Prop> {
       },
       body: JSON.stringify(body),
     }).then(res => {
-      console.log(res)
       if (JSON.parse(res._bodyText).isSuccess) {
-        console.log("commit done")
         this.load()
       }
     })
