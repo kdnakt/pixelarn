@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import Svg, {
   Rect,
+  Text,
 } from 'react-native-svg'
 import Date from './Date'
 
@@ -21,9 +22,23 @@ class Pixela extends Component {
       thisYear = today.getWeekYear(true)
     dataArray = this.buildDataArray(orgData, thisYear, l)
     for (let i = 0; i < l; i++) {
-      ret.push(this.buildColumn(x+12*i, dataArray[dataArray.length - (i + 1)]))
+      const col = this.buildColumn(x+12*i, dataArray[dataArray.length - (i + 1)])
+      if (!col) {
+        ret.push(this.buildYear(x+12*i, dataArray[dataArray.length - (i + 2)]))
+      } else {
+        ret.push(col)
+      }
     }
+    ret.push(this.buildYear(x, dataArray[dataArray.length - 1]))
     return ret
+  }
+
+  buildYear(x, yearArr) {
+    return (
+      <Text x={x} y={10}>
+        {new Date(yearArr[yearArr.length - 1].date).getFullYear()}
+      </Text>
+    )
   }
 
   buildDataArray(orgData, year, l) {
@@ -43,7 +58,8 @@ class Pixela extends Component {
   }
 
   buildColumn(x, colData) {
-    const y = 15, l = 7, ret = []
+    if (!colData) return undefined
+    const y = 15, l = colData.length, ret = []
     for (let i = 0; i < l; i++) {
       ret.push(this.buildRect(x,y+12*i,colData ? colData[i] : undefined))
     }
