@@ -76,7 +76,7 @@ class Pixela extends Component {
     lastDateOfWeek.setDate(lastDateOfWeek.getDate() - 7)
     const lastWeekMonth = lastDateOfWeek.getMonth()
     if (month > 0 && month != lastWeekMonth && x > 15+12*4) {
-      ret.push(this.buildMonth(x, month))
+      ret.push(this.buildMonth(x, month + 1))
     }
     return ret
   }
