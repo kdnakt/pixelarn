@@ -57,11 +57,26 @@ class Pixela extends Component {
     return ret
   }
 
+  buildMonth(x, month) {
+    return (
+      <Text x={x} y={10}>
+        {month}
+      </Text>
+    )
+  }
+
   buildColumn(x, colData) {
     if (!colData) return undefined
     const y = 15, l = colData.length, ret = []
     for (let i = 0; i < l; i++) {
-      ret.push(this.buildRect(x,y+12*i,colData ? colData[i] : undefined))
+      ret.push(this.buildRect(x,y+12*i, colData[i]))
+    }
+    const lastDateOfWeek = new Date(colData[colData.length - 1].date),
+        month = lastDateOfWeek.getMonth()
+    lastDateOfWeek.setDate(lastDateOfWeek.getDate() - 7)
+    const lastWeekMonth = lastDateOfWeek.getMonth()
+    if (month > 0 && month != lastWeekMonth && x > 15+12*4) {
+      ret.push(this.buildMonth(x, month))
     }
     return ret
   }
