@@ -51,10 +51,7 @@ export default class GraphEditScreen extends Component<Prop> {
       body: JSON.stringify(body),
     }).then(res => {
       if (res.ok) {
-        LoginStore.addGraph({
-            id: this.state.graphId,
-            name: this.state.graphName,
-        })
+        LoginStore.addGraph(body)
         Alert.alert(JSON.parse(res._bodyText).message)
         const { navigation } = this.props
         navigation.navigate('GraphList', LoginStore.getGraphs());
