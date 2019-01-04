@@ -71,10 +71,16 @@ export default class GraphEditScreen extends Component<Prop> {
         <FormLabel>Graph Id</FormLabel>
         <FormInput
           placeholder={"Enter new graph id"}
-          maxLength={16}
+          maxLength={17}
           autoCapitalize={"none"}
           keyboardType={"ascii-capable"}
-          onChangeText={(text) => this.setState({graphId:text})}
+          onChangeText={(text) => {
+            if (text && text.length > 1) {
+              this.setState({graphId:text})
+            } else {
+              this.setState({graphId:null})
+            }
+          }}
         />
         <FormLabel>Graph Name</FormLabel>
         <FormInput
