@@ -152,6 +152,7 @@ export default class GraphScreen extends Component<Prop> {
         <Button
           title="Commit"
           large
+          backgroundColor={'#00aced'}
           onPress={() => this._commit()}
         />
       </Card>
