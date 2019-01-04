@@ -41,6 +41,7 @@ export default class GraphEditScreen extends Component<Prop> {
       unit: "commit",
       type: "int",
       color: "shibafu",
+      timezone: "Asia/Tokyo",
     }
     fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs`, {
       method: 'POST',
