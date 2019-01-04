@@ -47,7 +47,7 @@ export default class LoginScreen extends Component<Prop> {
         LoginStore.setUserToken(this.state.userToken)
         LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
         const { navigation } = this.props
-        navigation.navigate('GraphList')
+        navigation.navigate('GraphList', LoginStore.getGraphs())
       } else {
         Alert.alert(JSON.parse(res._bodyText).message)
       }

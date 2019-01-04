@@ -17,7 +17,7 @@ var LoginStore = {
   removeGraph: (graphId) => {
     myGraphs = myGraphs.filter(g => g.id != graphId)
   },
-  getGraphs: () => myGraphs,
+  getGraphs: () => ({graphs: myGraphs}),
 }
 
 export default LoginStore

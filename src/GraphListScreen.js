@@ -56,12 +56,12 @@ export default class GraphListScreen extends Component<Prop> {
   }
 
   render() {
-    const graphs = LoginStore.getGraphs()
+    const {navigation} = this.props
     return (
       <View>
         <List>
           <FlatList
-            data={graphs}
+            data={navigation.getParam('graphs')}
             keyExtractor={(item, index) => item.id}
             renderItem={(item) => this.renderItem(item)}
           />
