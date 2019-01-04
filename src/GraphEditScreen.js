@@ -54,7 +54,6 @@ export default class GraphEditScreen extends Component<Prop> {
             id: this.state.graphId,
             name: this.state.graphName,
         })
-        console.log(LoginStore.getGraphs())
         const { navigation } = this.props
         navigation.goBack();
       } else {
