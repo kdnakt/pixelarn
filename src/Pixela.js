@@ -35,7 +35,7 @@ class Pixela extends Component {
 
   buildYear(x, yearArr) {
     return (
-      <Text x={x} y={10}>
+      <Text x={x} y={10} key={x + ".10"}>
         {new Date(yearArr[yearArr.length - 1].date).getFullYear()}
       </Text>
     )
@@ -59,7 +59,7 @@ class Pixela extends Component {
 
   buildMonth(x, month) {
     return (
-      <Text x={x} y={10}>
+      <Text x={x} y={10} key={x + ".10"}>
         {month}
       </Text>
     )
