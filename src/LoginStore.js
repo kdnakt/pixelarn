@@ -15,7 +15,7 @@ var LoginStore = {
     })
   },
   removeGraph: (graphId) => {
-    myGraphs = myGraphs.filter(g => g.id == graphId)
+    myGraphs = myGraphs.filter(g => g.id != graphId)
   },
   getGraphs: () => myGraphs,
 }
