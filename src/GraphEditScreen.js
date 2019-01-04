@@ -3,11 +3,13 @@ import React, {
 } from 'react'
 import {
   Alert,
-  Button,
-  StyleSheet,
-  TextInput,
   View,
 } from 'react-native'
+import {
+  Button,
+  FormLabel,
+  FormInput,
+} from 'react-native-elements'
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
@@ -65,20 +67,24 @@ export default class GraphEditScreen extends Component<Prop> {
     const { navigation } = this.props,
       graphs = navigation.getParam('graphs')
     return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder={"graphid"}
+      <View>
+        <FormLabel>Graph Id</FormLabel>
+        <FormInput
+          placeholder={"Enter new graph id"}
           maxLength={16}
           autoCapitalize={"none"}
           keyboardType={"ascii-capable"}
           onChangeText={(text) => this.setState({graphId:text})}
         />
-        <TextInput
-          placeholder={"Graph name"}
+        <FormLabel>Graph Name</FormLabel>
+        <FormInput
+          placeholder={"Enter new graph name"}
           onChangeText={(text) => this.setState({graphName:text})}
         />
         <Button
           title="Create"
+          large
+          backgroundColor={'#00aced'}
           disabled={!this.state.graphId || !this.state.graphName}
           onPress={() => this._sendRequest()}
         />
@@ -87,16 +93,4 @@ export default class GraphEditScreen extends Component<Prop> {
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    margin: 10,
-  }
-});
     
