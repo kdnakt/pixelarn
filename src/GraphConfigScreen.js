@@ -32,7 +32,6 @@ export default class GraphEditScreen extends Component<Prop> {
         <RNButton
           title='Delete'
           style={{color:"red"}}
-
           onPress={() => {
             Alert.alert(
               "Delete",
