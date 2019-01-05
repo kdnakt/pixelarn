@@ -10,8 +10,12 @@ import {
 } from 'react-native';
 import {
   Card,
-  Button
+  Button,
+  Icon,
 } from 'react-native-elements'
+import {
+  HeaderBackButton,
+} from 'react-navigation'
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition'
@@ -26,36 +30,20 @@ type Prop = {
 
 export default class GraphScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
-    const { name } = navigation.state.params;
+    const id = navigation.getParam('graphId'),
+      graph = LoginStore.getGraph(id)
     return {
+        headerLeft: (
+          <HeaderBackButton
+            onPress={() => navigation.navigate('GraphList', LoginStore.getGraphs())}
+          />
+        ),
         headerRight: (
-          <Btn
-            title="Delete Graph"
-            style={{color:"red"}}
-            onPress={() => {
-              Alert.alert(
-                "Delete",
-                `Are you sure to delete this graph: ${name}?`,
-                [
-                  {text: "Delete", onPress: () => {
-                    const id = navigation.getParam("graphId")
-                    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}`, {
-                      method: 'DELETE',
-                      headers: {
-                        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-                      },
-                    }).then(res => {
-                      if (res.ok) {
-                        Alert.alert(JSON.parse(res._bodyText).message)
-                        LoginStore.removeGraph(id)
-                        navigation.goBack()
-                      }
-                    })
-                  }},
-                  {text: "Cancel", onPress: () => Alert.alert("cancelled")}
-                ]
-              )
-            }}
+          <Icon
+            name="cog"
+            type="font-awesome"
+            iconStyle={{borderRightWidth: 8}}
+            onPress={() => navigation.navigate('GraphConfig', {graphId: id})}
           />
         )
     }
@@ -133,9 +121,11 @@ export default class GraphScreen extends Component<Prop> {
   }
 
   renderPixela() {
+    const {navigation} = this.props,
+      graph = LoginStore.getGraph(navigation.getParam('graphId'))
     return this.state.svgXmlData ? (
       <Card
-        title={this.props.navigation.getParam('name')}
+        title={graph.name}
       >
         <Pixela
           data={this.state.svgXmlData}

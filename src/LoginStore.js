@@ -18,6 +18,11 @@ var LoginStore = {
     myGraphs = myGraphs.filter(g => g.id != graphId)
   },
   getGraphs: () => ({graphs: myGraphs}),
+  getGraph: (graphId) => myGraphs.filter(g => g.id == graphId)[0],
+  setGraph: (graphId, graph) => {
+    LoginStore.removeGraph(graphId)
+    LoginStore.addGraph(graph)
+  },
 }
 
 export default LoginStore

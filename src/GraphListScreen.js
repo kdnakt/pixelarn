@@ -41,7 +41,7 @@ export default class GraphListScreen extends Component<Prop> {
   _onPress(item) {
     if (item.id == 'loading') return
     const { navigation } = this.props;
-    navigation.navigate('Graph', { graphId: item.id, name: item.name });
+    navigation.navigate('Graph', {graphId: item.id})
   }
 
   renderItem({item}) {
