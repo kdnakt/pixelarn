@@ -73,6 +73,7 @@ export default class GraphScreen extends Component<Prop> {
               isSuccessful: res.ok,
           })
         })
+    navigation.setParams({needReload: false})
   }
 
   _getNewQuantity() {
@@ -154,6 +155,8 @@ export default class GraphScreen extends Component<Prop> {
   }
 
   render() {
+    const {navigation} = this.props
+    if (navigation.getParam('needReload')) this.load()
     return (
       <View style={styles.container}>
         {!this.state.isSuccessful ? (

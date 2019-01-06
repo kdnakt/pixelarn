@@ -25,7 +25,10 @@ export default class GraphEditScreen extends Component<Prop> {
       title: 'CONFIG',
       headerLeft: (
         <HeaderBackButton
-          onPress={() => navigation.navigate('Graph', navigation.getParam('graphId'))}
+          onPress={() => navigation.navigate('Graph', {
+            graphId: navigation.getParam('graphId'),
+            needReload: navigation.getParam('needReload'),
+          })}
         />
       ),
       headerRight: (
@@ -80,6 +83,8 @@ export default class GraphEditScreen extends Component<Prop> {
     }).then(res => {
       if (res.ok) {
         LoginStore.setGraph(body.id, body)
+        const {navigation} = this.props
+        navigation.setParams({needReload: true})
       }
       Alert.alert(JSON.parse(res._bodyText).message)
     })
