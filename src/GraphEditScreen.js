@@ -3,6 +3,7 @@ import React, {
 } from 'react'
 import {
   Alert,
+  StyleSheet,
   View,
 } from 'react-native'
 import {
@@ -22,7 +23,7 @@ type Prop = {
 export default class GraphEditScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     return {
-        title: 'EDIT',
+        title: 'CREATE',
     }
   }
 
@@ -65,7 +66,7 @@ export default class GraphEditScreen extends Component<Prop> {
     const { navigation } = this.props,
       graphs = navigation.getParam('graphs')
     return (
-      <View>
+      <View style={styles.container}>
         <FormLabel>Graph Id</FormLabel>
         <FormInput
           placeholder={"Enter new graph id"}
@@ -97,4 +98,9 @@ export default class GraphEditScreen extends Component<Prop> {
   }
 
 }
-    
+
+let styles = StyleSheet.create({
+  container: {
+    margin: "5% 30%"
+  }
+});
