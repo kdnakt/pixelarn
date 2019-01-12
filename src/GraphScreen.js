@@ -35,6 +35,7 @@ export default class GraphScreen extends Component<Prop> {
     return {
         headerLeft: (
           <HeaderBackButton
+            title='GRAPH LIST'
             onPress={() => navigation.navigate('GraphList', LoginStore.getGraphs())}
           />
         ),

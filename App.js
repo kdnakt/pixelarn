@@ -3,27 +3,79 @@
  * @flow
  */
 import React from 'react'
-import { createAppContainer } from 'react-navigation';
+import {
+  createAppContainer,
+  createDrawerNavigator,
+} from 'react-navigation';
+import {
+  Icon,
+} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation-stack';
 import GraphScreen from './src/GraphScreen'
 import GraphConfigScreen from './src/GraphConfigScreen';
 import GraphEditScreen from './src/GraphEditScreen';
 import GraphListScreen from './src/GraphListScreen';
 import LoginScreen from './src/LoginScreen';
+import UserScreen from './src/UserScreen';
 
-const routes = {
+const graphStack = createStackNavigator({
   Graph: GraphScreen,
   GraphConfig: GraphConfigScreen,
   GraphEdit: GraphEditScreen,
   GraphList: GraphListScreen,
+}, {
+  navigationOptions: ({navigation}) => ({
+    drawerLabel: 'Graph List',
+    drawerLockMode: (
+      navigation.state.routes[navigation.state.index].params || {}
+    ).drawerLockMode,
+    drawerIcon: (<Icon
+      name="list"
+      type="font-awesome"
+    />),
+  })
+})
+
+const userStack = createStackNavigator({
+  User: UserScreen,
+}, {
+  navigationOptions: ({navigation}) => ({
+    drawerLabel: 'User',
+    drawerLockMode: (
+      navigation.state.routes[navigation.state.index].params || {}
+    ).drawerLockMode,
+    drawerIcon: (<Icon
+      name="user"
+      type="font-awesome"
+    />),
+  })
+})
+
+const pixelaDrawer = createDrawerNavigator({
+  GraphDrawer: {
+    path: '/graph',
+    screen: graphStack,
+  },
+  UserStack: {
+    path: '/user',
+    screen: userStack,
+  },
+}, {
+  initialRouteName: 'GraphDrawer',
+  navigationOptions: {
+    header: null,
+  },
+  contentOptions: {
+    activeTintColor: '#e91e63',
+  },
+})
+
+const AppNavigator = createStackNavigator({
   Login: LoginScreen,
-};
-
-const config = {
+  Pixela: pixelaDrawer,
+}, {
   initialRouteName: 'Login',
-};
-
-const AppNavigator = createStackNavigator(routes, config);
+})
 
 const AppContainer = createAppContainer(AppNavigator);
 
