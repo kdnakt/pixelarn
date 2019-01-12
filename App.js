@@ -22,7 +22,12 @@ const graphStack = createStackNavigator({
   Graph: GraphScreen,
   GraphConfig: GraphConfigScreen,
   GraphEdit: GraphEditScreen,
-  GraphList: GraphListScreen,
+  GraphList: {
+    screen: GraphListScreen,
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
+  },
 }, {
   navigationOptions: ({navigation}) => ({
     drawerLabel: 'Graph List',
