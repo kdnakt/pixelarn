@@ -9,7 +9,8 @@ import {
 } from 'react-native'
 import {
   List,
-  ListItem
+  ListItem,
+  Icon,
 } from 'react-native-elements'
 import {
   type NavigationScreenProp,
@@ -26,8 +27,10 @@ export default class GraphListScreen extends Component<Prop> {
         title: 'GRAPH LIST',
         headerLeft: null,
         headerRight: (
-          <Button
-            title="New Graph"
+          <Icon
+            name="plus-square"
+            type="font-awesome"
+            iconStyle={{borderRightWidth: 8}}
             onPress={() => navigation.navigate('GraphEdit')}
           />
         )
