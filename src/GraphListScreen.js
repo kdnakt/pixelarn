@@ -25,7 +25,14 @@ export default class GraphListScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     return {
         title: 'GRAPH LIST',
-        headerLeft: null,
+        headerLeft: (
+          <Icon
+            name="bars"
+            type="font-awesome"
+            iconStyle={{borderLeftWidth: 8}}
+            onPress={() => navigation.toggleDrawer()}
+          />
+        ),
         headerRight: (
           <Icon
             name="plus-square"

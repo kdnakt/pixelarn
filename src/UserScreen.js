@@ -4,8 +4,25 @@ import {
   Text,
   View,
 } from 'react-native'
+import {
+  Icon,
+} from 'react-native-elements'
 
 export default class UserScreen extends React.Component {
+
+  static navigationOptions = ({navigation}) => {
+    return {
+        title: 'USER SETTING',
+        headerLeft: (
+          <Icon
+            name="bars"
+            type="font-awesome"
+            iconStyle={{borderLeftWidth: 8}}
+            onPress={() => navigation.toggleDrawer()}
+          />
+        ),
+    }
+  }
 
   render() {
     return (

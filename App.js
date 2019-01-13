@@ -42,7 +42,12 @@ const graphStack = createStackNavigator({
 })
 
 const userStack = createStackNavigator({
-  User: UserScreen,
+  User: {
+    screen: UserScreen,
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
+  },
 }, {
   navigationOptions: ({navigation}) => ({
     drawerLabel: 'User',
