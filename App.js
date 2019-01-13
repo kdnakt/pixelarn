@@ -19,15 +19,15 @@ import LoginScreen from './src/LoginScreen';
 import UserScreen from './src/UserScreen';
 
 const graphStack = createStackNavigator({
-  Graph: GraphScreen,
-  GraphConfig: GraphConfigScreen,
-  GraphEdit: GraphEditScreen,
   GraphList: {
     screen: GraphListScreen,
     navigationOptions: {
       gesturesEnabled: false,
     },
   },
+  GraphEdit: GraphEditScreen,
+  Graph: GraphScreen,
+  GraphConfig: GraphConfigScreen,
 }, {
   navigationOptions: ({navigation}) => ({
     drawerLabel: 'Graph List',
