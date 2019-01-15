@@ -6,7 +6,10 @@ import {
 } from 'react-native'
 import {
   Icon,
+  FormLabel,
+  FormInput,
 } from 'react-native-elements'
+import LoginStore from './LoginStore';
 
 export default class UserScreen extends React.Component {
 
@@ -27,15 +30,25 @@ export default class UserScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>User Screen</Text>
+        <FormLabel>User Id</FormLabel>
+        <FormInput
+          editable={false}
+          value={`${LoginStore.getUserId()}`}
+        />
+        <FormLabel>New password</FormLabel>
+        <FormInput
+        />
+        <FormLabel>Confirm new password</FormLabel>
+        <FormInput
+        />
       </View>
     )
   }
 
 }
 
-const styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    margin: "5% 30%"
   }
-})
+});
