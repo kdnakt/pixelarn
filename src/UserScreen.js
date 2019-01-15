@@ -1,10 +1,10 @@
 import React from 'react'
 import {
   StyleSheet,
-  Text,
   View,
 } from 'react-native'
 import {
+  Button,
   Icon,
   FormLabel,
   FormInput,
@@ -40,6 +40,10 @@ export default class UserScreen extends React.Component {
     }
   }
 
+  _send() {
+    // TODO: implement
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -62,15 +66,56 @@ export default class UserScreen extends React.Component {
             }
           }}
         />
-        <FormValidationMessage>{this.state.oldPasswordValidationMessage}</FormValidationMessage>
+        <FormValidationMessage>
+          {this.state.oldPasswordValidationMessage}
+        </FormValidationMessage>
         <FormLabel>New Password</FormLabel>
         <FormInput
+          secureTextEntry={true}
+          maxLength={128}
+          onChangeText={(text) => {
+            if (!text) {
+              this.setState({newPassword: text, newPasswordValidationMessage: 'This item is required.'})
+            } else if (text.length < 8) {
+              this.setState({newPassword: text, newPasswordValidationMessage: '8 characters required.'})
+            } else {
+              this.setState({newPassword: text, newPasswordValidationMessage: null})
+            }
+          }}
         />
-        <FormValidationMessage></FormValidationMessage>
+        <FormValidationMessage>
+          {this.state.newPasswordValidationMessage}
+        </FormValidationMessage>
         <FormLabel>Confirm New Password</FormLabel>
         <FormInput
+          secureTextEntry={true}
+          maxLength={128}
+          onChangeText={(text) => {
+            if (!text) {
+              this.setState({confirmNewPasswordValidationMessage: 'This item is required.'})
+            } else if (text != this.state.newPassword) {
+              this.setState({confirmNewPasswordValidationMessage: 'This item should match new password.'})
+            } else {
+              this.setState({confirmNewPassword: text, confirmNewPasswordValidationMessage: null})
+            }
+          }}
         />
-        <FormValidationMessage></FormValidationMessage>
+        <FormValidationMessage>
+          {this.state.confirmNewPasswordValidationMessage}
+        </FormValidationMessage>
+        <Button
+          title="Update password"
+          large
+          backgroundColor={'#00aced'}
+          onPress={() => this._send()}
+          disabled={
+            !this.state.oldPassword
+            || !this.state.newPassword
+            || !this.state.confirmNewPassword
+            || this.state.oldPasswordValidationMessage
+            || this.state.newPasswordValidationMessage
+            || this.state.confirmNewPasswordValidationMessage}
+        />
       </View>
     )
   }
