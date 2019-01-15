@@ -8,6 +8,7 @@ import {
   Icon,
   FormLabel,
   FormInput,
+  FormValidationMessage,
 } from 'react-native-elements'
 import LoginStore from './LoginStore';
 
@@ -27,20 +28,49 @@ export default class UserScreen extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      oldPassword: null,
+      oldPasswordValidationMessage: null,
+      newPassword: null,
+      newPasswordValidationMessage: null,
+      confirmNewPassword: null,
+      confirmNewPasswordValidationMessage: null,
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <FormLabel>User Id</FormLabel>
         <FormInput
           editable={false}
-          value={`${LoginStore.getUserId()}`}
+          value={LoginStore.getUserId()}
         />
-        <FormLabel>New password</FormLabel>
+        <FormLabel>Old Password</FormLabel>
+        <FormInput
+          secureTextEntry={true}
+          maxLength={128}
+          onChangeText={(text) => {
+            if (!text) {
+              this.setState({oldPasswordValidationMessage: 'This item is required.'})
+            } else if (text.length < 8) {
+              this.setState({oldPasswordValidationMessage: '8 characters required.'})
+            } else {
+              this.setState({oldPassword: text, oldPasswordValidationMessage: null})
+            }
+          }}
+        />
+        <FormValidationMessage>{this.state.oldPasswordValidationMessage}</FormValidationMessage>
+        <FormLabel>New Password</FormLabel>
         <FormInput
         />
-        <FormLabel>Confirm new password</FormLabel>
+        <FormValidationMessage></FormValidationMessage>
+        <FormLabel>Confirm New Password</FormLabel>
         <FormInput
         />
+        <FormValidationMessage></FormValidationMessage>
       </View>
     )
   }
