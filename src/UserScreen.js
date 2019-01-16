@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Alert,
   StyleSheet,
   View,
 } from 'react-native'
@@ -41,7 +42,28 @@ export default class UserScreen extends React.Component {
   }
 
   _send() {
-    // TODO: implement
+    const { oldPassword, newPassword } = this.state,
+      body = { newToken : newPassword }
+    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/`, {
+      method: 'PUT',
+      headers: {
+        'X-USER-TOKEN': `${oldPassword}`
+      },
+      body: JSON.stringify(body),
+    }).then(res => {
+      Alert.alert(JSON.parse(res._bodyText).message)
+      if (res.ok) {
+        LoginStore.setUserToken(newPassword)
+        this.setState({
+          oldPassword: null,
+          oldPasswordValidationMessage: null,
+          newPassword: null,
+          newPasswordValidationMessage: null,
+          confirmNewPassword: null,
+          confirmNewPasswordValidationMessage: null,
+        }, () => this.forceUpdate())
+      }
+    })
   }
 
   render() {
@@ -52,7 +74,7 @@ export default class UserScreen extends React.Component {
           editable={false}
           value={LoginStore.getUserId()}
         />
-        <FormLabel>Old Password</FormLabel>
+        <FormLabel>Old Token</FormLabel>
         <FormInput
           secureTextEntry={true}
           maxLength={128}
@@ -69,7 +91,7 @@ export default class UserScreen extends React.Component {
         <FormValidationMessage>
           {this.state.oldPasswordValidationMessage}
         </FormValidationMessage>
-        <FormLabel>New Password</FormLabel>
+        <FormLabel>New Token</FormLabel>
         <FormInput
           secureTextEntry={true}
           maxLength={128}
@@ -86,7 +108,7 @@ export default class UserScreen extends React.Component {
         <FormValidationMessage>
           {this.state.newPasswordValidationMessage}
         </FormValidationMessage>
-        <FormLabel>Confirm New Password</FormLabel>
+        <FormLabel>Confirm New Token</FormLabel>
         <FormInput
           secureTextEntry={true}
           maxLength={128}
@@ -94,7 +116,7 @@ export default class UserScreen extends React.Component {
             if (!text) {
               this.setState({confirmNewPasswordValidationMessage: 'This item is required.'})
             } else if (text != this.state.newPassword) {
-              this.setState({confirmNewPasswordValidationMessage: 'This item should match new password.'})
+              this.setState({confirmNewPasswordValidationMessage: 'This item should match new token.'})
             } else {
               this.setState({confirmNewPassword: text, confirmNewPasswordValidationMessage: null})
             }
@@ -104,7 +126,7 @@ export default class UserScreen extends React.Component {
           {this.state.confirmNewPasswordValidationMessage}
         </FormValidationMessage>
         <Button
-          title="Update password"
+          title="Update token"
           large
           backgroundColor={'#00aced'}
           onPress={() => this._send()}
