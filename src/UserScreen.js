@@ -32,35 +32,35 @@ export default class UserScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      oldPassword: null,
-      oldPasswordValidationMessage: null,
-      newPassword: null,
-      newPasswordValidationMessage: null,
-      confirmNewPassword: null,
-      confirmNewPasswordValidationMessage: null,
+      oldToken: null,
+      oldTokenValidationMessage: null,
+      newToken: null,
+      newTokenValidationMessage: null,
+      confirmNewToken: null,
+      confirmNewTokenValidationMessage: null,
     }
   }
 
   _send() {
-    const { oldPassword, newPassword } = this.state,
-      body = { newToken : newPassword }
+    const { oldToken, newToken } = this.state,
+      body = { newToken : newToken }
     fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/`, {
       method: 'PUT',
       headers: {
-        'X-USER-TOKEN': `${oldPassword}`
+        'X-USER-TOKEN': `${oldToken}`
       },
       body: JSON.stringify(body),
     }).then(res => {
       Alert.alert(JSON.parse(res._bodyText).message)
       if (res.ok) {
-        LoginStore.setUserToken(newPassword)
+        LoginStore.setUserToken(newToken)
         this.setState({
-          oldPassword: null,
-          oldPasswordValidationMessage: null,
-          newPassword: null,
-          newPasswordValidationMessage: null,
-          confirmNewPassword: null,
-          confirmNewPasswordValidationMessage: null,
+          oldToken: null,
+          oldTokenValidationMessage: null,
+          newToken: null,
+          newTokenValidationMessage: null,
+          confirmNewToken: null,
+          confirmNewTokenValidationMessage: null,
         }, () => this.forceUpdate())
       }
     })
@@ -80,16 +80,16 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           onChangeText={(text) => {
             if (!text) {
-              this.setState({oldPasswordValidationMessage: 'This item is required.'})
+              this.setState({oldTokenValidationMessage: 'This item is required.'})
             } else if (text.length < 8) {
-              this.setState({oldPasswordValidationMessage: '8 characters required.'})
+              this.setState({oldTokenValidationMessage: '8 characters required.'})
             } else {
-              this.setState({oldPassword: text, oldPasswordValidationMessage: null})
+              this.setState({oldToken: text, oldTokenValidationMessage: null})
             }
           }}
         />
         <FormValidationMessage>
-          {this.state.oldPasswordValidationMessage}
+          {this.state.oldTokenValidationMessage}
         </FormValidationMessage>
         <FormLabel>New Token</FormLabel>
         <FormInput
@@ -97,16 +97,16 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           onChangeText={(text) => {
             if (!text) {
-              this.setState({newPassword: text, newPasswordValidationMessage: 'This item is required.'})
+              this.setState({newToken: text, newTokenValidationMessage: 'This item is required.'})
             } else if (text.length < 8) {
-              this.setState({newPassword: text, newPasswordValidationMessage: '8 characters required.'})
+              this.setState({newToken: text, newTokenValidationMessage: '8 characters required.'})
             } else {
-              this.setState({newPassword: text, newPasswordValidationMessage: null})
+              this.setState({newToken: text, newTokenValidationMessage: null})
             }
           }}
         />
         <FormValidationMessage>
-          {this.state.newPasswordValidationMessage}
+          {this.state.newTokenValidationMessage}
         </FormValidationMessage>
         <FormLabel>Confirm New Token</FormLabel>
         <FormInput
@@ -114,16 +114,16 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           onChangeText={(text) => {
             if (!text) {
-              this.setState({confirmNewPasswordValidationMessage: 'This item is required.'})
-            } else if (text != this.state.newPassword) {
-              this.setState({confirmNewPasswordValidationMessage: 'This item should match new token.'})
+              this.setState({confirmNewTokenValidationMessage: 'This item is required.'})
+            } else if (text != this.state.newToken) {
+              this.setState({confirmNewTokenValidationMessage: 'This item should match new token.'})
             } else {
-              this.setState({confirmNewPassword: text, confirmNewPasswordValidationMessage: null})
+              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: null})
             }
           }}
         />
         <FormValidationMessage>
-          {this.state.confirmNewPasswordValidationMessage}
+          {this.state.confirmNewTokenValidationMessage}
         </FormValidationMessage>
         <Button
           title="Update token"
@@ -131,12 +131,12 @@ export default class UserScreen extends React.Component {
           backgroundColor={'#00aced'}
           onPress={() => this._send()}
           disabled={
-            !this.state.oldPassword
-            || !this.state.newPassword
-            || !this.state.confirmNewPassword
-            || this.state.oldPasswordValidationMessage
-            || this.state.newPasswordValidationMessage
-            || this.state.confirmNewPasswordValidationMessage}
+            !this.state.oldToken
+            || !this.state.newToken
+            || !this.state.confirmNewToken
+            || this.state.oldTokenValidationMessage
+            || this.state.newTokenValidationMessage
+            || this.state.confirmNewTokenValidationMessage}
         />
       </View>
     )
