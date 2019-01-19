@@ -2,8 +2,6 @@ import React, {
   Component
 } from 'react'
 import {
-  Alert,
-  Button as Btn,
   StyleSheet,
   Text,
   View
@@ -20,9 +18,9 @@ import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition'
 import DatePicker from 'react-native-datepicker'
-import Pixela from './Pixela'
-import LoginStore from './LoginStore'
-import PixelaParser from './PixelaParser'
+import Pixela from './pixela/Pixela'
+import LoginStore from '../store/LoginStore'
+import PixelaParser from './pixela/PixelaParser'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,

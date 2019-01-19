@@ -14,7 +14,7 @@ import {
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
-import LoginStore from './LoginStore'
+import LoginStore from '../store/LoginStore'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,

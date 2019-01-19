@@ -2,7 +2,6 @@ import React, {
   Component,
 } from 'react'
 import {
-  Button,
   FlatList,
   StyleSheet,
   View,
@@ -15,7 +14,6 @@ import {
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
-import LoginStore from './LoginStore';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,

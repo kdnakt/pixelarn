@@ -11,7 +11,7 @@ import {
   FormInput,
   FormValidationMessage,
 } from 'react-native-elements'
-import LoginStore from './LoginStore';
+import LoginStore from '../store/LoginStore';
 
 export default class UserScreen extends React.Component {
 

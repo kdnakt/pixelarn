@@ -11,12 +11,12 @@ import {
   Icon,
 } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation-stack';
-import GraphScreen from './src/GraphScreen'
-import GraphConfigScreen from './src/GraphConfigScreen';
-import GraphEditScreen from './src/GraphEditScreen';
-import GraphListScreen from './src/GraphListScreen';
-import LoginScreen from './src/LoginScreen';
-import UserScreen from './src/UserScreen';
+import GraphScreen from './src/screen/GraphScreen'
+import GraphConfigScreen from './src/screen/GraphConfigScreen';
+import GraphEditScreen from './src/screen/GraphEditScreen';
+import GraphListScreen from './src/screen/GraphListScreen';
+import LoginScreen from './src/screen/LoginScreen';
+import UserScreen from './src/screen/UserScreen';
 
 const graphStack = createStackNavigator({
   GraphList: {

@@ -16,8 +16,8 @@ import {
 import {
   HeaderBackButton,
 } from 'react-navigation'
-import LoginStore from './LoginStore'
-import Colors from './Colors'
+import LoginStore from '../store/LoginStore'
+import Colors from './pixela/Colors'
 
 export default class GraphEditScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
