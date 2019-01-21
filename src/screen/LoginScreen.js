@@ -43,8 +43,12 @@ export default class LoginScreen extends Component<Prop> {
   componentWillMount() {
     Realm.open(Schema).then(realm => {
       const users = realm.objects(UserSchema.name)
-      console.log(users[0])
-      this.setState({realm: realm})
+      if (users[0] && users[0].id && users[0].token) {
+        this.setState({
+          userId: users[0].id,
+          userToken: users[0].token,
+        }, () => this._send(true))
+      }
     })
   }
 
@@ -59,7 +63,7 @@ export default class LoginScreen extends Component<Prop> {
     })
   }
 
-  _send() {
+  _send(skipSave) {
     fetch(`https://pixe.la/v1/users/${this.state.userId}/graphs`, {
       method: 'GET',
       headers: {
@@ -69,7 +73,7 @@ export default class LoginScreen extends Component<Prop> {
       if (res.ok) {
         LoginStore.setUserId(this.state.userId)
         LoginStore.setUserToken(this.state.userToken)
-        this._save()
+        if (!skipSave) this._save()
         LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
         const { navigation } = this.props
         navigation.navigate('GraphList', LoginStore.getGraphs())
