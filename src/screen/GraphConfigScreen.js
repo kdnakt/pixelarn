@@ -3,11 +3,11 @@ import React, {
 } from 'react'
 import {
   Alert,
-  Button as RNButton,
   View,
 } from 'react-native'
 import {
   Button,
+  Icon,
   CheckBox,
   FormLabel,
   FormInput,
@@ -32,9 +32,10 @@ export default class GraphEditScreen extends Component<Prop> {
         />
       ),
       headerRight: (
-        <RNButton
-          title='Delete'
-          style={{color:"red"}}
+        <Icon
+          name="trash"
+          type="font-awesome"
+          iconStyle={{borderRightWidth: 8}}
           onPress={() => {
             Alert.alert(
               "Delete",
