@@ -7,8 +7,6 @@ import Svg, {
 } from 'react-native-svg'
 import Date from './Date'
 
-const DOMParser = require('xmldom').DOMParser;
-
 const SIZE = "10"
 
 class Pixela extends Component {
