@@ -50,7 +50,7 @@ export default class GraphScreen extends Component<Prop> {
 
   constructor(props) {
     super(props)
-    today = new Date()
+    const today = new Date()
     this.state = {
         svgXmlData: null,
         isSuccessful: true,

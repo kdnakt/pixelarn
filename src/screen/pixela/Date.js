@@ -12,8 +12,8 @@ Date.prototype.getWeek = function () {
   if(day < 4) {
     weeknum = Math.floor((daynum+day-1)/7) + 1;
     if(weeknum > 52) {
-      nYear = new Date(this.getFullYear() + 1,0,1);
-      nday = nYear.getDay();
+      var nYear = new Date(this.getFullYear() + 1,0,1);
+      var nday = nYear.getDay();
       nday = nday >= 0 ? nday : nday + 7;
       /*if the next year starts before the middle of
        the week, it is week #1 of that year*/

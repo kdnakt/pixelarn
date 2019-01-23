@@ -17,8 +17,8 @@ class Pixela extends Component {
   buildPixela(orgData) {
     const x = 15, l = 20, ret = [],
       today = new Date(),
-      thisYear = today.getWeekYear(true)
-    dataArray = this.buildDataArray(orgData, thisYear, l)
+      thisYear = today.getWeekYear(true),
+      dataArray = this.buildDataArray(orgData, thisYear, l)
     for (let i = 0; i < l; i++) {
       const col = this.buildColumn(x+12*i, dataArray[dataArray.length - (i + 1)])
       if (!col) {
