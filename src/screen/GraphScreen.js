@@ -142,6 +142,7 @@ export default class GraphScreen extends Component<Prop> {
         <Button
           title="Commit"
           large
+          style={styles.button}
           backgroundColor={'#00aced'}
           onPress={() => this._commit()}
         />
@@ -157,7 +158,7 @@ export default class GraphScreen extends Component<Prop> {
     const {navigation} = this.props
     if (navigation.getParam('needReload')) this.load()
     return (
-      <View style={styles.container}>
+      <View>
         {!this.state.isSuccessful ? (
           <Text>{this.state.svgXmlData.message}</Text>
         ) : this.renderPixela()}
@@ -167,14 +168,11 @@ export default class GraphScreen extends Component<Prop> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
   datepicker: {
-    top: -100
+    top: -180,
+    left: 80,
   },
-  text: {
-    margin: 100,
-    alignItems: 'center',
-  }
+  button: {
+    top: -150,
+  },
 });
