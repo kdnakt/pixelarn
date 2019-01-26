@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import {
   Button,
+  Divider,
   Icon,
   FormLabel,
   FormInput,
@@ -137,6 +138,12 @@ export default class UserScreen extends React.Component {
             || this.state.oldTokenValidationMessage
             || this.state.newTokenValidationMessage
             || this.state.confirmNewTokenValidationMessage}
+        />
+        <Divider style={{height:16, backgroundColor: "white"}}/>
+        <Button
+          title="Sign out"
+          large
+          backgroundColor="gold"
         />
       </View>
     )
