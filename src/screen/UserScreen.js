@@ -43,6 +43,7 @@ export default class UserScreen extends React.Component {
   }
 
   _send() {
+    this.setState({sending:true})
     const { oldToken, newToken } = this.state,
       body = { newToken : newToken }
     fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/`, {
@@ -53,16 +54,19 @@ export default class UserScreen extends React.Component {
       body: JSON.stringify(body),
     }).then(res => {
       Alert.alert(JSON.parse(res._bodyText).message)
+      const state = {sending:false}
       if (res.ok) {
         LoginStore.setUserToken(newToken)
-        this.setState({
+        this.setState(Object.assign(state, {
           oldToken: null,
           oldTokenValidationMessage: null,
           newToken: null,
           newTokenValidationMessage: null,
           confirmNewToken: null,
           confirmNewTokenValidationMessage: null,
-        }, () => this.forceUpdate())
+        }), () => this.forceUpdate())
+      } else {
+        this.setState(state)
       }
     })
   }
@@ -88,6 +92,7 @@ export default class UserScreen extends React.Component {
               this.setState({oldToken: text, oldTokenValidationMessage: null})
             }
           }}
+          value={this.state.oldToken}
         />
         <FormValidationMessage>
           {this.state.oldTokenValidationMessage}
@@ -105,6 +110,7 @@ export default class UserScreen extends React.Component {
               this.setState({newToken: text, newTokenValidationMessage: null})
             }
           }}
+          value={this.state.newToken}
         />
         <FormValidationMessage>
           {this.state.newTokenValidationMessage}
@@ -122,6 +128,7 @@ export default class UserScreen extends React.Component {
               this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: null})
             }
           }}
+          value={this.state.confirmNewToken}
         />
         <FormValidationMessage>
           {this.state.confirmNewTokenValidationMessage}
@@ -144,6 +151,7 @@ export default class UserScreen extends React.Component {
           title="Sign out"
           large
           backgroundColor="gold"
+          disabled={this.state.sending}
         />
       </View>
     )
