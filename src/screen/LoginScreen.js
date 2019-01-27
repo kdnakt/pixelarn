@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import {
   Button,
+  Divider,
   FormLabel,
   FormInput,
 } from 'react-native-elements'
@@ -43,11 +44,13 @@ export default class LoginScreen extends Component<Prop> {
   componentWillMount() {
     Realm.open(Schema).then(realm => {
       const users = realm.objects(UserSchema.name)
-      if (users[0] && users[0].id && users[0].token) {
+      if (users[0]) {
         this.setState({
           userId: users[0].id,
           userToken: users[0].token,
-        }, () => this._send(true))
+        }, () => {
+          if (users[0].token) this._send(true)
+        })
       }
     })
   }
@@ -58,8 +61,10 @@ export default class LoginScreen extends Component<Prop> {
         realm.create(UserSchema.name, {
           id: this.state.userId,
           token: this.state.userToken,
-        });
-      });
+        })
+        LoginStore.setUserId(this.state.userId)
+        LoginStore.setUserToken(this.state.userToken)
+      })
     })
   }
 
@@ -71,8 +76,6 @@ export default class LoginScreen extends Component<Prop> {
       }
     }).then(res => {
       if (res.ok) {
-        LoginStore.setUserId(this.state.userId)
-        LoginStore.setUserToken(this.state.userToken)
         if (!skipSave) this._save()
         LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
         const { navigation } = this.props
@@ -91,13 +94,16 @@ export default class LoginScreen extends Component<Prop> {
           placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
+          value={this.state.userId}
         />
         <FormLabel>User Token</FormLabel>
         <FormInput
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
+          value={this.state.userToken}
         />
+        <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Login"
           large

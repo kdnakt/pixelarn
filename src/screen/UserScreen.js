@@ -12,6 +12,11 @@ import {
   FormInput,
   FormValidationMessage,
 } from 'react-native-elements'
+import Realm from 'realm'
+import {
+  Schema,
+  UserSchema,
+} from '../store/Schema'
 import LoginStore from '../store/LoginStore';
 
 export default class UserScreen extends React.Component {
@@ -56,7 +61,7 @@ export default class UserScreen extends React.Component {
       Alert.alert(JSON.parse(res._bodyText).message)
       const state = {sending:false}
       if (res.ok) {
-        LoginStore.setUserToken(newToken)
+        this._save(newToken)
         this.setState(Object.assign(state, {
           oldToken: null,
           oldTokenValidationMessage: null,
@@ -69,6 +74,24 @@ export default class UserScreen extends React.Component {
         this.setState(state)
       }
     })
+  }
+
+  _save(newToken) {
+    Realm.open(Schema).then(realm => {
+      realm.write(() => {
+        realm.create(UserSchema.name, {
+          id: LoginStore.getUserId(),
+          token: newToken,
+        }, true)
+        LoginStore.setUserToken(newToken)
+        const {navigation} = this.props
+        navigation.navigate('Login')
+      })
+    })
+  }
+
+  _signout() {
+    this._save("")
   }
 
   render() {
@@ -152,6 +175,7 @@ export default class UserScreen extends React.Component {
           large
           backgroundColor="gold"
           disabled={this.state.sending}
+          onPress={() => this._signout()}
         />
       </View>
     )
