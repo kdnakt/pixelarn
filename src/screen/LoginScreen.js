@@ -38,6 +38,7 @@ export default class LoginScreen extends Component<Prop> {
     this.state = {
       userId: null,
       userToken: null,
+      userExists: false,
     }
   }
 
@@ -48,6 +49,7 @@ export default class LoginScreen extends Component<Prop> {
         this.setState({
           userId: users[0].id,
           userToken: users[0].token,
+          userExists: true,
         }, () => {
           if (users[0].token) this._send(true)
         })
@@ -61,7 +63,7 @@ export default class LoginScreen extends Component<Prop> {
         realm.create(UserSchema.name, {
           id: this.state.userId,
           token: this.state.userToken,
-        })
+        }, this.state.userExists)
         LoginStore.setUserId(this.state.userId)
         LoginStore.setUserToken(this.state.userToken)
       })
