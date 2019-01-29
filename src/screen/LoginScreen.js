@@ -107,11 +107,11 @@ export default class LoginScreen extends Component<Prop> {
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
-          title="Login"
+          title={this.state.userExists ? "Loading..." : "Login"}
           large
           backgroundColor={'#00aced'}
           onPress={() => this._send()}
-          disabled={!this.state.userId || !this.state.userToken}
+          disabled={(!this.state.userId || !this.state.userToken) || this.state.userExists}
         />
       </View>
     )
