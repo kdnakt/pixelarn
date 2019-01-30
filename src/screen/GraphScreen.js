@@ -175,4 +175,8 @@ const styles = StyleSheet.create({
   button: {
     top: -150,
   },
+  text: {
+    textAlign: 'center',
+    margin: 24,
+  }
 });
