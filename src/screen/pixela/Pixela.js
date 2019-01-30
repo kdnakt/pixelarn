@@ -94,7 +94,7 @@ class Pixela extends Component {
 
   render() {
     return (
-      <Svg height={300} width={300} viewBox="0 0 300 300">
+      <Svg height={300} width={300} viewBox="0 0 260 250">
         {this.buildPixela(this.props.data)}
       </Svg>
     )

@@ -169,7 +169,7 @@ export default class GraphScreen extends Component<Prop> {
 
 const styles = StyleSheet.create({
   datepicker: {
-    top: -180,
+    top: -170,
     left: 80,
   },
   button: {
