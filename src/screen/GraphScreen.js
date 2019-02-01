@@ -51,12 +51,14 @@ export default class GraphScreen extends Component<Prop> {
 
   constructor(props) {
     super(props)
-    const today = new Date()
+    const today = new Date(),
+      todayDate = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
     this.state = {
         svgXmlData: null,
         isSuccessful: true,
         targetValue: 0,
-        targetDate: today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
+        targetDate: todayDate,
+        today: todayDate,
     }
   }
 
@@ -145,6 +147,7 @@ export default class GraphScreen extends Component<Prop> {
           cancelBtnText="Cancel"
           style={styles.datepicker}
           date={this.state.targetDate}
+          maxDate={this.state.today}
           onDateChange={(dateStr) => this.setState({targetDate: dateStr})}
         />
         <FormInput
