@@ -82,6 +82,7 @@ class Pixela extends Component {
   buildRect(x, y, data) {
     return (
       <Rect
+        onPress={(e) => this.props.onPressRect(data.date, data.count)}
         x={x}
         y={y}
         width={SIZE}

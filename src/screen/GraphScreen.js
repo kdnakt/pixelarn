@@ -10,6 +10,7 @@ import {
   Card,
   Button,
   Icon,
+  FormInput,
 } from 'react-native-elements'
 import {
   HeaderBackButton,
@@ -54,6 +55,7 @@ export default class GraphScreen extends Component<Prop> {
     this.state = {
         svgXmlData: null,
         isSuccessful: true,
+        targetValue: 0,
         targetDate: today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
     }
   }
@@ -129,6 +131,12 @@ export default class GraphScreen extends Component<Prop> {
       >
         <Pixela
           data={this.state.svgXmlData}
+          onPressRect={(date, count) => {
+            this.setState({
+              targetDate: date,
+              targetValue: count,
+            })
+          }}
         />
         <DatePicker
           format={"YYYY-MM-DD"}
@@ -138,6 +146,10 @@ export default class GraphScreen extends Component<Prop> {
           style={styles.datepicker}
           date={this.state.targetDate}
           onDateChange={(dateStr) => this.setState({targetDate: dateStr})}
+        />
+        <FormInput
+          keyboardType={"numeric"}
+          value={`${this.state.targetValue}`}
         />
         <Button
           title="Commit"
