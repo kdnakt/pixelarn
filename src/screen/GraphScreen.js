@@ -107,7 +107,7 @@ export default class GraphScreen extends Component<Prop> {
       id = navigation.getParam('graphId'),
       date = this._getTargetDate()
     const body = {
-      quantity: String(this._getNewQuantity())
+      quantity: `${this._getNewQuantity()}`
     }
     fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}/${date}`, {
       method: 'PUT',
