@@ -27,6 +27,10 @@ type Prop = {
   navigation: NavigationScreenProp<*>,
 }
 
+getDateStr = (today: Date) => {
+  return today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
+}
+
 export default class GraphScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     const id = navigation.getParam('graphId'),
@@ -52,13 +56,16 @@ export default class GraphScreen extends Component<Prop> {
   constructor(props) {
     super(props)
     const today = new Date(),
-      todayDate = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
+      todayDate = getDateStr(today)
+    today.setFullYear(today.getFullYear() - 1)
+    const minDate = getDateStr(today)
     this.state = {
         svgXmlData: null,
         isSuccessful: true,
         targetValue: 0,
         targetDate: todayDate,
         today: todayDate,
+        minDate: minDate,
     }
   }
 
@@ -148,6 +155,7 @@ export default class GraphScreen extends Component<Prop> {
           style={styles.datepicker}
           date={this.state.targetDate}
           maxDate={this.state.today}
+          minDate={this.state.minDate}
           onDateChange={(dateStr) => this.setState({targetDate: dateStr})}
         />
         <FormInput
