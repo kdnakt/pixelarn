@@ -27,8 +27,12 @@ type Prop = {
   navigation: NavigationScreenProp<*>,
 }
 
-getDateStr = (today: Date) => {
-  return today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
+getDateStr = (today) => {
+  return today.getFullYear()
+      + "-"
+      + (today.getMonth() + 1)
+      + "-"
+      + today.getDate()
 }
 
 export default class GraphScreen extends Component<Prop> {
