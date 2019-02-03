@@ -49,7 +49,8 @@ export default class LoginScreen extends Component<Prop> {
         this.setState({
           userId: users[0].id,
           userToken: users[0].token,
-          userExists: true,
+          isUpdate: true,
+          userExists: !!users[0].id && !!users[0].token,
         }, () => {
           if (users[0].token) this._send(true)
         })
@@ -63,7 +64,7 @@ export default class LoginScreen extends Component<Prop> {
         realm.create(UserSchema.name, {
           id: this.state.userId,
           token: this.state.userToken,
-        }, this.state.userExists)
+        }, this.state.isUpdate)
       })
     })
   }
@@ -89,6 +90,12 @@ export default class LoginScreen extends Component<Prop> {
   }
 
   render() {
+    const {navigation} = this.props,
+      isSignout = LoginStore.getGraph(navigation.getParam('isSignout'))
+    if (isSignout) {
+      navigation.setParams({isSignout: false})
+      this.setState({userExists: false})
+    }
     return (
       <View style={styles.container}>
         <FormLabel>User Id</FormLabel>

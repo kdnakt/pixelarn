@@ -84,8 +84,10 @@ export default class UserScreen extends React.Component {
           token: newToken,
         }, true)
         LoginStore.setUserToken(newToken)
-        const {navigation} = this.props
-        navigation.navigate('Login')
+        if (!newToken) {
+          const {navigation} = this.props
+          navigation.navigate('Login', {isSignout: true})
+        }
       })
     })
   }
