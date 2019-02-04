@@ -29,7 +29,7 @@ type Prop = {
 export default class LoginScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
     return {
-        title: "Pixelarn"
+        title: "Pixelarn - Login"
     }
   }
 
@@ -89,6 +89,11 @@ export default class LoginScreen extends Component<Prop> {
     })
   }
 
+  _signup() {
+    const { navigation } = this.props
+    navigation.navigate('Signup')
+  }
+
   render() {
     const {navigation} = this.props,
       isSignout = LoginStore.getGraph(navigation.getParam('isSignout'))
@@ -125,6 +130,7 @@ export default class LoginScreen extends Component<Prop> {
           title="Sign Up"
           large
           backgroundColor="gold"
+          onPress={() => this._signup()}
         />
       </View>
     )
