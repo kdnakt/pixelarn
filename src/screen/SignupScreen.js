@@ -39,7 +39,7 @@ export default class SignupScreen extends Component<Prop> {
       userId: null,
       userToken: null,
       agree: false,
-      notMonitor: false,
+      notMinor: false,
     }
   }
 
@@ -69,7 +69,7 @@ export default class SignupScreen extends Component<Prop> {
       token: this.state.userToken,
       username: this.state.userId,
       agreeTermsOfService: this.state.agree,
-      notMonitor: this.state.notMonitor,
+      notMinor: this.state.notMinor,
     }
     fetch('https://pixe.la/v1/users/', {
       method: 'POST',
