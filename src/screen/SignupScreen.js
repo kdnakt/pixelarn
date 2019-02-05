@@ -2,15 +2,16 @@ import React, {
   Component,
 } from 'react'
 import {
-  Alert,
   StyleSheet,
   View,
 } from 'react-native'
 import {
   Button,
+  CheckBox,
   Divider,
   FormLabel,
   FormInput,
+  ListItem,
 } from 'react-native-elements'
 import {
   type NavigationScreenProp,
@@ -107,10 +108,33 @@ export default class SignupScreen extends Component<Prop> {
           value={this.state.userToken}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
+        <ListItem
+          title="Terms of Service (English)"
+          containerStyle={styles.listitem}
+        />
+        <ListItem
+          title="Terms of Service (Japanese)"
+          containerStyle={styles.listitem}
+        />
+        <Divider style={{height:16, backgroundColor: 'white'}} />
+        <CheckBox
+          title='I have read and agree to the Terms of Service.'
+          checkedColor='#00aced'
+          checked={this.state.agree}
+          onPress={() => this.setState({agree: !this.state.agree})}
+        />
+        <CheckBox
+          title='I am not a minor or have my parent/legal guardian provide consent to use this.'
+          checkedColor='#00aced'
+          checked={this.state.notMinor}
+          onPress={() => this.setState({notMinor: !this.state.notMinor})}
+        />
+        <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Sign Up"
           large
           backgroundColor="gold"
+          disabled={!this.state.agree}
           onPress={() => this._send()}
         />
       </View>
@@ -120,6 +144,10 @@ export default class SignupScreen extends Component<Prop> {
 
 let styles = StyleSheet.create({
   container: {
-    margin: "5% 30%"
+    margin: "5% 30%",
+  },
+  listitem: {
+    marginLeft: "5%",
+    marginRight: "5%",
   }
 });
