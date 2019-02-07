@@ -41,6 +41,7 @@ export default class SignupScreen extends Component<Prop> {
       userToken: null,
       agree: false,
       notMinor: false,
+      readTerms: false,
     }
   }
 
@@ -90,6 +91,11 @@ export default class SignupScreen extends Component<Prop> {
     })
   }
 
+  _openTerms(uri) {
+    this.props.navigation.navigate('Terms', { uri: uri })
+    this.setState({readTerms: true})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -111,16 +117,12 @@ export default class SignupScreen extends Component<Prop> {
         <ListItem
           title="Terms of Service (English)"
           containerStyle={styles.listitem}
-          onPress={() => this.props.navigation.navigate('Terms', {
-            uri: 'https://github.com/a-know/Pixela/wiki/Terms-of-Service'
-          })}
+          onPress={() => this._openTerms('https://github.com/a-know/Pixela/wiki/Terms-of-Service')}
         />
         <ListItem
           title="Terms of Service (Japanese)"
           containerStyle={styles.listitem}
-          onPress={() => this.props.navigation.navigate('Terms', {
-            uri: 'https://github.com/a-know/Pixela/wiki/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88Terms-of-Service-Japanese-Version%EF%BC%89'
-          })}
+          onPress={() => this._openTerms('https://github.com/a-know/Pixela/wiki/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88Terms-of-Service-Japanese-Version%EF%BC%89')}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <CheckBox
@@ -140,7 +142,7 @@ export default class SignupScreen extends Component<Prop> {
           title="Sign Up"
           large
           backgroundColor="gold"
-          disabled={!this.state.agree}
+          disabled={!this.state.agree || !this.state.notMinor || !this.state.readTerms}
           onPress={() => this._send()}
         />
       </View>
