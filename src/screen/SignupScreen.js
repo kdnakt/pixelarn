@@ -111,10 +111,16 @@ export default class SignupScreen extends Component<Prop> {
         <ListItem
           title="Terms of Service (English)"
           containerStyle={styles.listitem}
+          onPress={() => this.props.navigation.navigate('Terms', {
+            uri: 'https://github.com/a-know/Pixela/wiki/Terms-of-Service'
+          })}
         />
         <ListItem
           title="Terms of Service (Japanese)"
           containerStyle={styles.listitem}
+          onPress={() => this.props.navigation.navigate('Terms', {
+            uri: 'https://github.com/a-know/Pixela/wiki/%E5%88%A9%E7%94%A8%E8%A6%8F%E7%B4%84%EF%BC%88Terms-of-Service-Japanese-Version%EF%BC%89'
+          })}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <CheckBox

@@ -17,6 +17,7 @@ import GraphEditScreen from './src/screen/GraphEditScreen';
 import GraphListScreen from './src/screen/GraphListScreen';
 import LoginScreen from './src/screen/LoginScreen';
 import SignupScreen from './src/screen/SignupScreen';
+import TermsScreen from './src/screen/TermsScreen';
 import UserScreen from './src/screen/UserScreen';
 
 const graphStack = createStackNavigator({
@@ -84,6 +85,7 @@ const pixelaDrawer = createDrawerNavigator({
 const AppNavigator = createStackNavigator({
   Login: LoginScreen,
   Signup: SignupScreen,
+  Terms: TermsScreen,
   Pixela: pixelaDrawer,
 }, {
   initialRouteName: 'Login',
