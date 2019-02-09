@@ -47,29 +47,34 @@ export default class GraphListScreen extends Component<Prop> {
   }
 
   _onPress(item) {
-    if (item.id == 'loading') return
     const { navigation } = this.props;
     navigation.navigate('Graph', {graphId: item.id})
   }
 
   renderItem({item}) {
+    const nodata = item.id == 'nodata'
     return (
       <ListItem
-        leftIcon={{name: 'apps'}}
+        leftIcon={nodata ? null : {name: 'apps'}}
         title={item.name}
         key={item.id}
-        onPress={() => this._onPress(item)}
+        hideChevron={nodata}
+        onPress={nodata ? () => {} : () => this._onPress(item)}
       />
     )
   }
 
   render() {
     const {navigation} = this.props
+    let graphs = navigation.getParam('graphs');
+    if (graphs.length == 0) {
+      graphs = [{id:'nodata', name:'No Data'}]
+    }
     return (
       <View>
         <List>
           <FlatList
-            data={navigation.getParam('graphs')}
+            data={graphs}
             keyExtractor={(item, index) => item.id}
             renderItem={(item) => this.renderItem(item)}
           />
