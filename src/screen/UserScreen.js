@@ -126,6 +126,7 @@ export default class UserScreen extends React.Component {
         <FormInput
           secureTextEntry={true}
           maxLength={128}
+          keyboardType={"email-address"}
           onChangeText={(text) => {
             if (!text) {
               this.setState({newToken: text, newTokenValidationMessage: 'This item is required.'})
@@ -144,6 +145,7 @@ export default class UserScreen extends React.Component {
         <FormInput
           secureTextEntry={true}
           maxLength={128}
+          keyboardType={"email-address"}
           onChangeText={(text) => {
             if (!text) {
               this.setState({confirmNewTokenValidationMessage: 'This item is required.'})
