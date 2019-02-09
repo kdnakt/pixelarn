@@ -125,20 +125,42 @@ export default class SignupScreen extends Component<Prop> {
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
           maxLength={128}
-          keyboardType={"number-pad"}
+          keyboardType={"email-address"}
           onChangeText={(text) => {
-            this.setState({userToken:text})
+            if (!text) {
+              this.setState({userToken: text, userTokenValidationMessage: 'This item is required.'})
+              return
+            } else if (text.length < 8) {
+              this.setState({userToken: text, userTokenValidationMessage: '8 characters required.'})
+            } else {
+              this.setState({userToken: text, userTokenValidationMessage: null})
+            }
           }}
           value={this.state.userToken}
         />
+        <FormValidationMessage>
+          {this.state.userTokenValidationMessage}
+        </FormValidationMessage>
         <FormLabel>Confirm User Token</FormLabel>
         <FormInput
           placeholder={"Please enter your user token again"}
           secureTextEntry={true}
           maxLength={128}
-          onChangeText={(text) => this.setState({confirmUserToken:text})}
+          keyboardType={"email-address"}
+          onChangeText={(text) => {
+            if (!text) {
+              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: 'This item is required.'})
+            } else if (text != this.state.userToken) {
+              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: 'This item should match user token.'})
+            } else {
+              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: null})
+            }
+          }}
           value={this.state.confirmUserToken}
         />
+        <FormValidationMessage>
+          {this.state.confirmUserTokenValidationMessage}
+        </FormValidationMessage>
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <ListItem
           title="Terms of Service (English)"
