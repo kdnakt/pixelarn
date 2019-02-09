@@ -11,6 +11,7 @@ import {
   Divider,
   FormLabel,
   FormInput,
+  FormValidationMessage,
   ListItem,
 } from 'react-native-elements'
 import {
@@ -38,21 +39,13 @@ export default class SignupScreen extends Component<Prop> {
     super(props)
     this.state = {
       userId: null,
+      userIdValidationMessage: null,
       userToken: null,
+      confirmUserToken: null,
       agree: false,
       notMinor: false,
       readTerms: false,
     }
-  }
-
-  componentWillMount() {
-    Realm.open(Schema).then(realm => {
-      const users = realm.objects(UserSchema.name)
-      console.log(users)
-      this.setState({
-        users: users
-      })
-    })
   }
 
   _save() {
@@ -103,15 +96,48 @@ export default class SignupScreen extends Component<Prop> {
         <FormInput
           placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
-          onChangeText={(text) => this.setState({userId:text})}
+          keyboardType={"default"}
+          maxLength={32}
+          onChangeText={(text) => {
+            if (!text) {
+              this.setState({userId: text, userIdValidationMessage: 'This item is required.'})
+              return
+            }
+            const r1 = /[a-z]/
+            const r2 = /[a-z][a-z0-9-]/
+            if (!r1.test(text.charAt(0))) {
+              this.setState({userId: text, userIdValidationMessage: 'This should start with an alphabet.'})
+            } else if (text.length < 2) {
+              this.setState({userId: text, userIdValidationMessage: '2 characters required.'})
+            } else if (!r2.test(text)) {
+              this.setState({userId: text, userIdValidationMessage: 'Only alphabets and numbers are allowed.'})
+            } else {
+              this.setState({userId: text, userIdValidationMessage: null})
+            }
+          }}
           value={this.state.userId}
         />
+        <FormValidationMessage>
+          {this.state.userIdValidationMessage}
+        </FormValidationMessage>
         <FormLabel>User Token</FormLabel>
         <FormInput
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
-          onChangeText={(text) => this.setState({userToken:text})}
+          maxLength={128}
+          keyboardType={"number-pad"}
+          onChangeText={(text) => {
+            this.setState({userToken:text})
+          }}
           value={this.state.userToken}
+        />
+        <FormLabel>Confirm User Token</FormLabel>
+        <FormInput
+          placeholder={"Please enter your user token again"}
+          secureTextEntry={true}
+          maxLength={128}
+          onChangeText={(text) => this.setState({confirmUserToken:text})}
+          value={this.state.confirmUserToken}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <ListItem
