@@ -67,7 +67,7 @@ export default class GraphListScreen extends Component<Prop> {
   render() {
     const {navigation} = this.props
     let graphs = navigation.getParam('graphs');
-    if (graphs.length == 0) {
+    if (!graphs || graphs.length == 0) {
       graphs = [{id:'nodata', name:'No Data'}]
     }
     return (
