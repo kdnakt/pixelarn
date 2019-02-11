@@ -2,6 +2,7 @@ import React, {
   Component,
 } from 'react'
 import {
+  Alert,
   StyleSheet,
   View,
 } from 'react-native'
@@ -49,38 +50,37 @@ export default class SignupScreen extends Component<Prop> {
   }
 
   _save() {
-    // Realm.open(Schema).then(realm => {
-    //   realm.write(() => {
-    //     realm.create(UserSchema.name, {
-    //       id: this.state.userId,
-    //       token: this.state.userToken,
-    //     }, this.state.isUpdate)
-    //   })
-    // })
+    Realm.open(Schema).then(realm => {
+      realm.write(() => {
+        realm.create(UserSchema.name, {
+          id: this.state.userId,
+          token: this.state.userToken,
+        })
+      })
+    })
   }
 
   _send() {
     const user = {
       token: this.state.userToken,
       username: this.state.userId,
-      agreeTermsOfService: this.state.agree,
-      notMinor: this.state.notMinor,
+      agreeTermsOfService: this.state.agree ? "yes" : "no",
+      notMinor: this.state.notMinor ? "yes" : "no",
     }
     fetch('https://pixe.la/v1/users/', {
       method: 'POST',
       body: JSON.stringify(user),
     }).then(res => {
-      console.log(res)
-      // if (res.ok) {
-      //   if (!skipSave) this._save()
-      //   LoginStore.setUserId(this.state.userId)
-      //   LoginStore.setUserToken(this.state.userToken)
-      //   LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
-      //   const { navigation } = this.props
-      //   navigation.navigate('GraphList', LoginStore.getGraphs())
-      // } else {
-      //   Alert.alert(JSON.parse(res._bodyText).message)
-      // }
+      if (res.ok) {
+        this._save()
+        LoginStore.setUserId(this.state.userId)
+        LoginStore.setUserToken(this.state.userToken)
+        LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
+        const { navigation } = this.props
+        navigation.navigate('GraphList', LoginStore.getGraphs())
+      } else {
+        Alert.alert(JSON.parse(res._bodyText).message)
+      }
     })
   }
 
