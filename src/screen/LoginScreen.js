@@ -96,11 +96,8 @@ export default class LoginScreen extends Component<Prop> {
 
   render() {
     const {navigation} = this.props,
-      isSignout = LoginStore.getGraph(navigation.getParam('isSignout'))
-    if (isSignout) {
-      navigation.setParams({isSignout: false})
-      this.setState({userExists: false})
-    }
+        isSignout = navigation.getParam('isSignout'),
+        isAutoLogin = this.state.userExists && !isSignout
     return (
       <View style={styles.container}>
         <FormLabel>User Id</FormLabel>
@@ -119,11 +116,11 @@ export default class LoginScreen extends Component<Prop> {
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
-          title={this.state.userExists ? "Loading..." : "Login"}
+          title={isAutoLogin ? "Loading..." : "Login"}
           large
           backgroundColor={'#00aced'}
           onPress={() => this._send()}
-          disabled={(!this.state.userId || !this.state.userToken) || this.state.userExists}
+          disabled={(!this.state.userId || !this.state.userToken) || isAutoLogin}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
