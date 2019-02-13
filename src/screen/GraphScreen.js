@@ -164,6 +164,7 @@ export default class GraphScreen extends Component<Prop> {
         />
         <FormInput
           keyboardType={"numeric"}
+          containerStyle={styles.count}
           value={`${this.state.targetValue}`}
         />
         <Button
@@ -196,8 +197,8 @@ export default class GraphScreen extends Component<Prop> {
 
 const styles = StyleSheet.create({
   datepicker: {
-    top: -170,
-    left: 80,
+    top: -160,
+    left: 60,
   },
   button: {
     top: -150,
@@ -205,5 +206,10 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     margin: 24,
+  },
+  count: {
+    top: -200,
+    left: 210,
+    width: '10%',
   }
 });
