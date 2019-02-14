@@ -4,6 +4,8 @@ import React, {
 import {
   FlatList,
   StyleSheet,
+  ScrollView,
+  RefreshControl,
   View,
 } from 'react-native'
 import {
@@ -44,6 +46,9 @@ export default class GraphListScreen extends Component<Prop> {
 
   constructor(props: Prop) {
     super(props)
+    this.state = {
+      refreshing: false,
+    }
   }
 
   _onPress(item) {
@@ -64,6 +69,13 @@ export default class GraphListScreen extends Component<Prop> {
     )
   }
 
+  _onRefresh() {
+    this.setState({refreshing: true})
+    // fetch data
+    console.log("fetch!")
+    this.setState({refreshing: false})
+  }
+
   render() {
     const {navigation} = this.props
     let graphs = navigation.getParam('graphs');
@@ -72,13 +84,22 @@ export default class GraphListScreen extends Component<Prop> {
     }
     return (
       <View>
-        <List>
-          <FlatList
-            data={graphs}
-            keyExtractor={(item, index) => item.id}
-            renderItem={(item) => this.renderItem(item)}
-          />
-        </List>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => this._onRefresh()}
+            />
+          }
+        >
+          <List>
+            <FlatList
+              data={graphs}
+              keyExtractor={(item, index) => item.id}
+              renderItem={(item) => this.renderItem(item)}
+            />
+          </List>
+        </ScrollView>
       </View>
     )
   }
