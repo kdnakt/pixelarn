@@ -13,6 +13,7 @@ import {
   ListItem,
   Icon,
 } from 'react-native-elements'
+import LoginStore from '../store/LoginStore'
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
@@ -71,9 +72,18 @@ export default class GraphListScreen extends Component<Prop> {
 
   _onRefresh() {
     this.setState({refreshing: true})
-    // fetch data
-    console.log("fetch!")
-    this.setState({refreshing: false})
+    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs`, {
+      method: 'GET',
+      headers: {
+        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
+      }
+    }).then(res => {
+      if (res.ok) {
+        const {navigation} = this.props
+        navigation.setParams({'graphs': JSON.parse(res._bodyText).graphs})
+      }
+      this.setState({refreshing: false})
+    })
   }
 
   render() {
