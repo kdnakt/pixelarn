@@ -21,6 +21,9 @@ import {
   Schema,
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore'
+import {
+  getGraphs,
+} from '../PixelaApi'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -70,12 +73,7 @@ export default class LoginScreen extends Component<Prop> {
   }
 
   _send(skipSave) {
-    fetch(`https://pixe.la/v1/users/${this.state.userId}/graphs`, {
-      method: 'GET',
-      headers: {
-        'X-USER-TOKEN': `${this.state.userToken}`
-      }
-    }).then(res => {
+    getGraphs(this.state.userId, this.state.userToken).then(res => {
       if (res.ok) {
         if (!skipSave) this._save()
         LoginStore.setUserId(this.state.userId)

@@ -18,6 +18,10 @@ import {
 } from 'react-navigation'
 import LoginStore from '../store/LoginStore'
 import Colors from './pixela/Colors'
+import {
+  deleteGraph,
+  updateGraph,
+} from '../PixelaApi'
 
 export default class GraphEditScreen extends Component<Prop> {
   static navigationOptions = ({navigation}) => {
@@ -43,12 +47,7 @@ export default class GraphEditScreen extends Component<Prop> {
               [
                 {text: "Delete", onPress: () => {
                   const id = navigation.getParam("graphId")
-                  fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}`, {
-                      method: 'DELETE',
-                      headers: {
-                        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-                    },
-                  }).then(res => {
+                  deleteGraph(id).then(res => {
                     if (res.ok) {
                       Alert.alert(JSON.parse(res._bodyText).message)
                       LoginStore.removeGraph(id)
@@ -75,13 +74,7 @@ export default class GraphEditScreen extends Component<Prop> {
 
   _sendRequest() {
     const body = this.state.graph
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${body.id}`, {
-      method: 'PUT',
-      headers: {
-        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-      },
-      body: JSON.stringify(body),
-    }).then(res => {
+    updateGraph(body).then(res => {
       if (res.ok) {
         LoginStore.setGraph(body.id, body)
         const {navigation} = this.props

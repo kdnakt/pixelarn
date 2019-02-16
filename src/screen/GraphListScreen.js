@@ -17,6 +17,9 @@ import LoginStore from '../store/LoginStore'
 import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
+import {
+  getGraphs,
+} from '../PixelaApi'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -72,12 +75,7 @@ export default class GraphListScreen extends Component<Prop> {
 
   _onRefresh() {
     this.setState({refreshing: true})
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs`, {
-      method: 'GET',
-      headers: {
-        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-      }
-    }).then(res => {
+    getGraphs(LoginStore.getUserId(), LoginStore.getUserToken()).then(res => {
       if (res.ok) {
         const {navigation} = this.props
         navigation.setParams({'graphs': JSON.parse(res._bodyText).graphs})

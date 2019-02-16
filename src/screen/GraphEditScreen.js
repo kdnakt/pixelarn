@@ -15,6 +15,7 @@ import {
   type NavigationScreenProp,
 } from 'react-navigation/src/TypeDefinition';
 import LoginStore from '../store/LoginStore'
+import { createGraph } from '../PixelaApi';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -44,13 +45,7 @@ export default class GraphEditScreen extends Component<Prop> {
       color: "shibafu",
       timezone: "Asia/Tokyo",
     }
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs`, {
-      method: 'POST',
-      headers: {
-        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-      },
-      body: JSON.stringify(body),
-    }).then(res => {
+    createGraph(body).then(res => {
       if (res.ok) {
         LoginStore.addGraph(body)
         Alert.alert(JSON.parse(res._bodyText).message)
