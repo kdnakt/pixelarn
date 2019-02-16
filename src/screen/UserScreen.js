@@ -18,6 +18,7 @@ import {
   UserSchema,
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore';
+import { updateToken } from '../PixelaApi';
 
 export default class UserScreen extends React.Component {
 
@@ -49,15 +50,8 @@ export default class UserScreen extends React.Component {
 
   _send() {
     this.setState({sending:true})
-    const { oldToken, newToken } = this.state,
-      body = { newToken : newToken }
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/`, {
-      method: 'PUT',
-      headers: {
-        'X-USER-TOKEN': `${oldToken}`
-      },
-      body: JSON.stringify(body),
-    }).then(res => {
+    const { oldToken, newToken } = this.state
+    updateToken(oldToken, newToken).then(res => {
       Alert.alert(JSON.parse(res._bodyText).message)
       const state = {sending:false}
       if (res.ok) {

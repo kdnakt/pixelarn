@@ -22,6 +22,10 @@ import DatePicker from 'react-native-datepicker'
 import Pixela from './pixela/Pixela'
 import LoginStore from '../store/LoginStore'
 import PixelaParser from './pixela/PixelaParser'
+import {
+  commitGraph,
+  getGraph,
+} from '../PixelaApi'
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -80,13 +84,12 @@ export default class GraphScreen extends Component<Prop> {
   load() {
     const { navigation } = this.props,
       id = navigation.getParam('graphId')
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/` + id)
-        .then(res => {
-          this.setState({
-              svgXmlData: res.ok ? PixelaParser.parse(res._bodyText) : JSON.parse(res._bodyText),
-              isSuccessful: res.ok,
-          })
-        })
+    getGraph(id).then(res => {
+      this.setState({
+        svgXmlData: res.ok ? PixelaParser.parse(res._bodyText) : JSON.parse(res._bodyText),
+        isSuccessful: res.ok,
+      })
+    })
     navigation.setParams({needReload: false})
   }
 
@@ -122,13 +125,7 @@ export default class GraphScreen extends Component<Prop> {
     const body = {
       quantity: `${this._getNewQuantity()}`
     }
-    fetch(`https://pixe.la/v1/users/${LoginStore.getUserId()}/graphs/${id}/${date}`, {
-      method: 'PUT',
-      headers: {
-        'X-USER-TOKEN': `${LoginStore.getUserToken()}`
-      },
-      body: JSON.stringify(body),
-    }).then(res => {
+    commitGraph(id, date, this._getNewQuantity()).then(res => {
       if (JSON.parse(res._bodyText).isSuccess) {
         this.load()
       }

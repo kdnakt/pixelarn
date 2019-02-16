@@ -24,6 +24,7 @@ import {
   Schema,
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore'
+import { createUser } from '../PixelaApi';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -67,10 +68,7 @@ export default class SignupScreen extends Component<Prop> {
       agreeTermsOfService: this.state.agree ? "yes" : "no",
       notMinor: this.state.notMinor ? "yes" : "no",
     }
-    fetch('https://pixe.la/v1/users/', {
-      method: 'POST',
-      body: JSON.stringify(user),
-    }).then(res => {
+    createUser(user).then(res => {
       if (res.ok) {
         this._save()
         LoginStore.setUserId(this.state.userId)
