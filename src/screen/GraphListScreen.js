@@ -76,9 +76,9 @@ export default class GraphListScreen extends Component<Prop> {
   _onRefresh() {
     this.setState({refreshing: true})
     getGraphs(LoginStore.getUserId(), LoginStore.getUserToken()).then(res => {
-      if (res.ok) {
+      if (res.graphs) {
         const {navigation} = this.props
-        navigation.setParams({'graphs': JSON.parse(res._bodyText).graphs})
+        navigation.setParams({'graphs': res.graphs})
       }
       this.setState({refreshing: false})
     })

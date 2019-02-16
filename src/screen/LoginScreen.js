@@ -74,15 +74,15 @@ export default class LoginScreen extends Component<Prop> {
 
   _send(skipSave) {
     getGraphs(this.state.userId, this.state.userToken).then(res => {
-      if (res.ok) {
+      if (res.graphs) {
         if (!skipSave) this._save()
         LoginStore.setUserId(this.state.userId)
         LoginStore.setUserToken(this.state.userToken)
-        LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
+        LoginStore.setGraphs(res.graphs)
         const { navigation } = this.props
         navigation.navigate('GraphList', LoginStore.getGraphs())
       } else {
-        Alert.alert(JSON.parse(res._bodyText).message)
+        Alert.alert(res.message)
       }
     })
   }

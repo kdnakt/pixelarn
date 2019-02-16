@@ -8,7 +8,7 @@ export function getGraphs(id, token) {
     headers: {
       'X-USER-TOKEN': `${token}`,
     },
-  })
+  }).then(res => res.json())
 }
 
 export function createGraph(graph) {
