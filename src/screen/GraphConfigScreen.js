@@ -75,12 +75,12 @@ export default class GraphEditScreen extends Component<Prop> {
   _sendRequest() {
     const body = this.state.graph
     updateGraph(body).then(res => {
-      if (res.ok) {
+      Alert.alert(res.message)
+      if (res.isSuccess) {
         LoginStore.setGraph(body.id, body)
         const {navigation} = this.props
         navigation.setParams({needReload: true})
       }
-      Alert.alert(JSON.parse(res._bodyText).message)
     })
   }
 

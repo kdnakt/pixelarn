@@ -126,7 +126,7 @@ export default class GraphScreen extends Component<Prop> {
       quantity: `${this._getNewQuantity()}`
     }
     commitGraph(id, date, this._getNewQuantity()).then(res => {
-      if (JSON.parse(res._bodyText).isSuccess) {
+      if (res.isSuccess) {
         this.load()
       }
     })

@@ -35,7 +35,7 @@ export function commitGraph(id, date, quantity) {
       'X-USER-TOKEN': `${LoginStore.getUserToken()}`,
     },
     body: JSON.stringify(body),
-  })
+  }).then(res => res.json())
 }
 
 export function updateGraph(graph) {
@@ -45,7 +45,7 @@ export function updateGraph(graph) {
       'X-USER-TOKEN': `${LoginStore.getUserToken()}`,
     },
     body: JSON.stringify(graph),
-  })
+  }).then(res => res.json())
 }
 
 export function deleteGraph(id) {
