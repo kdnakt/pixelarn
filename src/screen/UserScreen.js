@@ -52,9 +52,9 @@ export default class UserScreen extends React.Component {
     this.setState({sending:true})
     const { oldToken, newToken } = this.state
     updateToken(oldToken, newToken).then(res => {
-      Alert.alert(JSON.parse(res._bodyText).message)
+      Alert.alert(res.message)
       const state = {sending:false}
-      if (res.ok) {
+      if (res.isSuccess) {
         this._save(newToken)
         this.setState(Object.assign(state, {
           oldToken: null,

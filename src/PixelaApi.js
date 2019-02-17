@@ -74,5 +74,5 @@ export function updateToken(oldToken, newToken) {
       'X-USER-TOKEN': `${oldToken}`
     },
     body: JSON.stringify(body),
-  })
+  }).then(res => res.json())
 }
