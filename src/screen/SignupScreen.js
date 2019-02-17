@@ -25,6 +25,7 @@ import {
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore'
 import { createUser } from '../PixelaApi';
+import { validateId } from '../PixelaValidator';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -96,27 +97,10 @@ export default class SignupScreen extends Component<Prop> {
           autoCapitalize={"none"}
           keyboardType={"default"}
           maxLength={32}
-          onChangeText={(text) => {
-            if (!text) {
-              this.setState({userId: text, userIdValidationMessage: 'This item is required.'})
-              return
-            }
-            const r1 = /[a-z]/
-            const r2 = /[a-z0-9-]/
-            if (!r1.test(text.charAt(0))) {
-              this.setState({userId: text, userIdValidationMessage: 'This should start with a lowercase alphabet.'})
-            } else if (text.length < 2) {
-              this.setState({userId: text, userIdValidationMessage: '2 characters required.'})
-            } else {
-              for (let i = 1, l = text.length; i < l; i++) {
-                if (!r2.test(text.charAt(i))) {
-                  this.setState({userId: text, userIdValidationMessage: 'Lowercase alphabets, numbers and "-" are allowed.'})
-                  return
-                }
-              }
-              this.setState({userId: text, userIdValidationMessage: null})
-            }
-          }}
+          onChangeText={(text) => this.setState({
+            userId: text,
+            userIdValidationMessage: validateId(text),
+          })}
           value={this.state.userId}
         />
         <FormValidationMessage>

@@ -18,6 +18,7 @@ import {
 } from 'react-navigation/src/TypeDefinition';
 import LoginStore from '../store/LoginStore'
 import { createGraph } from '../PixelaApi';
+import { validateId } from '../PixelaValidator';
 
 type Prop = {
   navigation: NavigationScreenProp<*>,
@@ -68,27 +69,10 @@ export default class GraphEditScreen extends Component<Prop> {
           maxLength={17}
           autoCapitalize={"none"}
           keyboardType={"ascii-capable"}
-          onChangeText={(text) => {
-            if (!text) {
-              this.setState({graphId: text, graphIdValidationMessage: 'This item is required'})
-              return
-            }
-            const r1 = /[a-z]/
-            const r2 = /[a-z0-9-]/
-            if (!r1.test(text.charAt(0))) {
-              this.setState({graphId: text, graphIdValidationMessage: 'This should start with a lowercase alphabet.'})
-            } else if (text.length < 2) {
-              this.setState({graphId: text, graphIdValidationMessage: '2 characters required.'})
-            } else {
-              for (let i = 1, l = text.length; i < l; i++) {
-                if (!r2.test(text.charAt(i))) {
-                  this.setState({graphId: text, graphIdValidationMessage: 'Lowercase alphabets, numbers and "-" are allowed.'})
-                  return
-                }
-              }
-              this.setState({graphId: text, graphIdValidationMessage: ''})
-            }
-          }}
+          onChangeText={(text) => this.setState({
+            graphId: text,
+            graphIdValidationMessage: validateId(text),
+          })}
           value={this.state.graphId}
         />
         <FormValidationMessage>
