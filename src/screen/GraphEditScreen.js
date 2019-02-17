@@ -8,8 +8,10 @@ import {
 } from 'react-native'
 import {
   Button,
+  Divider,
   FormLabel,
   FormInput,
+  FormValidationMessage,
 } from 'react-native-elements'
 import {
   type NavigationScreenProp,
@@ -67,18 +69,37 @@ export default class GraphEditScreen extends Component<Prop> {
           autoCapitalize={"none"}
           keyboardType={"ascii-capable"}
           onChangeText={(text) => {
-            if (text && text.length > 1) {
-              this.setState({graphId:text})
+            if (!text) {
+              this.setState({graphId: text, graphIdValidationMessage: 'This item is required'})
+              return
+            }
+            const r1 = /[a-z]/
+            const r2 = /[a-z0-9-]/
+            if (!r1.test(text.charAt(0))) {
+              this.setState({graphId: text, graphIdValidationMessage: 'This should start with a lowercase alphabet.'})
+            } else if (text.length < 2) {
+              this.setState({graphId: text, graphIdValidationMessage: '2 characters required.'})
             } else {
-              this.setState({graphId:null})
+              for (let i = 1, l = text.length; i < l; i++) {
+                if (!r2.test(text.charAt(i))) {
+                  this.setState({graphId: text, graphIdValidationMessage: 'Lowercase alphabets, numbers and "-" are allowed.'})
+                  return
+                }
+              }
+              this.setState({graphId: text, graphIdValidationMessage: ''})
             }
           }}
+          value={this.state.graphId}
         />
+        <FormValidationMessage>
+          {this.state.graphIdValidationMessage}
+        </FormValidationMessage>
         <FormLabel>Graph Name</FormLabel>
         <FormInput
           placeholder={"Enter new graph name"}
           onChangeText={(text) => this.setState({graphName:text})}
         />
+        <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Create"
           large
