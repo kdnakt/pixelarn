@@ -46,13 +46,11 @@ export default class GraphEditScreen extends Component<Prop> {
       timezone: "Asia/Tokyo",
     }
     createGraph(body).then(res => {
-      if (res.ok) {
+      Alert.alert(res.message)
+      if (res.isSuccess) {
         LoginStore.addGraph(body)
-        Alert.alert(JSON.parse(res._bodyText).message)
         const { navigation } = this.props
         navigation.navigate('GraphList', LoginStore.getGraphs());
-      } else {
-        Alert.alert(JSON.parse(res._bodyText).message)
       }
     })
   }

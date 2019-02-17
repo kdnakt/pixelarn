@@ -18,7 +18,7 @@ export function createGraph(graph) {
       'X-USER-TOKEN': `${LoginStore.getUserToken()}`
     },
     body: JSON.stringify(graph),
-  })
+  }).then(res => res.json())
 }
 
 export function getGraph(id) {
@@ -54,7 +54,7 @@ export function deleteGraph(id) {
     headers: {
       'X-USER-TOKEN': `${LoginStore.getUserToken()}`,
     },
-  })
+  }).then(res => res.json())
 }
 
 export function createUser(user) {

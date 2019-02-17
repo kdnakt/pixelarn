@@ -48,8 +48,8 @@ export default class GraphEditScreen extends Component<Prop> {
                 {text: "Delete", onPress: () => {
                   const id = navigation.getParam("graphId")
                   deleteGraph(id).then(res => {
-                    if (res.ok) {
-                      Alert.alert(JSON.parse(res._bodyText).message)
+                    Alert.alert(res.message)
+                    if (res.isSuccess) {
                       LoginStore.removeGraph(id)
                       navigation.navigate('GraphList', LoginStore.getGraphs())
                     }
