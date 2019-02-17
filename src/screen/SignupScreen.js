@@ -69,15 +69,15 @@ export default class SignupScreen extends Component<Prop> {
       notMinor: this.state.notMinor ? "yes" : "no",
     }
     createUser(user).then(res => {
-      if (res.ok) {
+      if (res.isSuccess) {
         this._save()
         LoginStore.setUserId(this.state.userId)
         LoginStore.setUserToken(this.state.userToken)
-        LoginStore.setGraphs(JSON.parse(res._bodyText).graphs)
+        LoginStore.setGraphs(res.graphs)
         const { navigation } = this.props
         navigation.navigate('GraphList', LoginStore.getGraphs())
       } else {
-        Alert.alert(JSON.parse(res._bodyText).message)
+        Alert.alert(res.message)
       }
     })
   }

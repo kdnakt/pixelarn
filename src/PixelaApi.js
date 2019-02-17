@@ -61,7 +61,7 @@ export function createUser(user) {
   return fetch(`${BASE_URL}`, {
     method: 'POST',
     body: JSON.stringify(user),
-  })
+  }).then(res => res.json())
 }
 
 export function updateToken(oldToken, newToken) {
