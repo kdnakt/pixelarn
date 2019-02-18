@@ -104,13 +104,10 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           keyboardType={"email-address"}
           onChangeText={(text) => {
-            if (!text) {
-              this.setState({oldToken: text, oldTokenValidationMessage: 'This item is required.'})
-            } else if (text.length < 8) {
-              this.setState({oldToken: text, oldTokenValidationMessage: '8 characters required.'})
-            } else {
-              this.setState({oldToken: text, oldTokenValidationMessage: null})
-            }
+            this.setState({
+              oldToken: text,
+              oldTokenValidationMessage: validateToken(text),
+            })
           }}
           value={this.state.oldToken}
         />
@@ -123,13 +120,10 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           keyboardType={"email-address"}
           onChangeText={(text) => {
-            if (!text) {
-              this.setState({newToken: text, newTokenValidationMessage: 'This item is required.'})
-            } else if (text.length < 8) {
-              this.setState({newToken: text, newTokenValidationMessage: '8 characters required.'})
-            } else {
-              this.setState({newToken: text, newTokenValidationMessage: null})
-            }
+            this.setState({
+              newToken: text,
+              newTokenValidationMessage: validateToken(text),
+            })
           }}
           value={this.state.newToken}
         />
@@ -142,13 +136,10 @@ export default class UserScreen extends React.Component {
           maxLength={128}
           keyboardType={"email-address"}
           onChangeText={(text) => {
-            if (!text) {
-              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: 'This item is required.'})
-            } else if (text != this.state.newToken) {
-              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: 'This item should match new token.'})
-            } else {
-              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: null})
-            }
+            this.setState({
+              confirmNewToken: text,
+              confirmNewTokenValidationMessage: validateTokens(text, this.state.newToken, 'new token'),
+            })
           }}
           value={this.state.confirmNewToken}
         />

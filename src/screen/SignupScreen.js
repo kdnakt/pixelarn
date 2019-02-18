@@ -22,7 +22,7 @@ import {
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore'
 import { createUser } from '../PixelaApi';
-import { validateId } from '../PixelaValidator';
+import { validateId, validateTokens, validateToken } from '../PixelaValidator';
 
 export default class SignupScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -106,14 +106,10 @@ export default class SignupScreen extends Component {
           maxLength={128}
           keyboardType={"email-address"}
           onChangeText={(text) => {
-            if (!text) {
-              this.setState({userToken: text, userTokenValidationMessage: 'This item is required.'})
-              return
-            } else if (text.length < 8) {
-              this.setState({userToken: text, userTokenValidationMessage: '8 characters required.'})
-            } else {
-              this.setState({userToken: text, userTokenValidationMessage: null})
-            }
+            this.setState({
+              userToken: text,
+              userTokenValidationMessage: validateToken(text),
+            })
           }}
           value={this.state.userToken}
         />
@@ -127,13 +123,10 @@ export default class SignupScreen extends Component {
           maxLength={128}
           keyboardType={"email-address"}
           onChangeText={(text) => {
-            if (!text) {
-              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: 'This item is required.'})
-            } else if (text != this.state.userToken) {
-              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: 'This item should match user token.'})
-            } else {
-              this.setState({confirmUserToken: text, confirmUserTokenValidationMessage: null})
-            }
+            this.setState({
+              confirmUserToken: text,
+              confirmUserTokenValidationMessage: validateTokens(text, this.state.userToken, 'user token'),
+            })
           }}
           value={this.state.confirmUserToken}
         />
