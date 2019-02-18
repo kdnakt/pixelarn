@@ -76,6 +76,7 @@ export default class LoginScreen extends Component {
         navigation.navigate('GraphList', LoginStore.getGraphs())
       } else {
         Alert.alert(res.message)
+        this.setState({userExists: false})
       }
     })
   }
