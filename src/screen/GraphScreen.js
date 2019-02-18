@@ -50,7 +50,7 @@ export default class GraphScreen extends Component {
             iconStyle={{borderRightWidth: 8}}
             onPress={() => navigation.navigate('GraphConfig', {graphId: id})}
           />
-        )
+        ),
     }
   }
 
