@@ -102,11 +102,12 @@ export default class UserScreen extends React.Component {
         <FormInput
           secureTextEntry={true}
           maxLength={128}
+          keyboardType={"email-address"}
           onChangeText={(text) => {
             if (!text) {
-              this.setState({oldTokenValidationMessage: 'This item is required.'})
+              this.setState({oldToken: text, oldTokenValidationMessage: 'This item is required.'})
             } else if (text.length < 8) {
-              this.setState({oldTokenValidationMessage: '8 characters required.'})
+              this.setState({oldToken: text, oldTokenValidationMessage: '8 characters required.'})
             } else {
               this.setState({oldToken: text, oldTokenValidationMessage: null})
             }
@@ -142,9 +143,9 @@ export default class UserScreen extends React.Component {
           keyboardType={"email-address"}
           onChangeText={(text) => {
             if (!text) {
-              this.setState({confirmNewTokenValidationMessage: 'This item is required.'})
+              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: 'This item is required.'})
             } else if (text != this.state.newToken) {
-              this.setState({confirmNewTokenValidationMessage: 'This item should match new token.'})
+              this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: 'This item should match new token.'})
             } else {
               this.setState({confirmNewToken: text, confirmNewTokenValidationMessage: null})
             }
@@ -163,9 +164,9 @@ export default class UserScreen extends React.Component {
             !this.state.oldToken
             || !this.state.newToken
             || !this.state.confirmNewToken
-            || this.state.oldTokenValidationMessage
-            || this.state.newTokenValidationMessage
-            || this.state.confirmNewTokenValidationMessage}
+            || !!this.state.oldTokenValidationMessage
+            || !!this.state.newTokenValidationMessage
+            || !!this.state.confirmNewTokenValidationMessage}
         />
         <Divider style={{height:16, backgroundColor: "white"}}/>
         <Button
