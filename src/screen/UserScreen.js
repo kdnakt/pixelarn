@@ -6,7 +6,6 @@ import {
 } from 'react-native'
 import {
   Button,
-  Divider,
   Icon,
   FormLabel,
   FormInput,
@@ -21,6 +20,21 @@ import LoginStore from '../store/LoginStore';
 import { updateToken } from '../PixelaApi';
 import { validateTokens, validateToken } from '../PixelaValidator';
 
+const save = (newToken, navigation) => {
+  Realm.open(Schema).then(realm => {
+    realm.write(() => {
+      realm.create(UserSchema.name, {
+        id: LoginStore.getUserId(),
+        token: newToken,
+      }, true)
+      LoginStore.setUserToken(newToken)
+      if (!newToken) {
+        navigation.navigate('Login', {isSignout: true})
+      }
+    })
+  })
+}
+
 export default class UserScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => {
@@ -32,6 +46,16 @@ export default class UserScreen extends React.Component {
             type="font-awesome"
             iconStyle={{borderLeftWidth: 8}}
             onPress={() => navigation.toggleDrawer()}
+          />
+        ),
+        headerRight: (
+          <Icon
+            name="sign-out"
+            type="font-awesome"
+            iconStyle={{borderRightWidth: 8}}
+            onPress={() => {
+              save("", navigation)
+            }}
           />
         ),
     }
@@ -72,23 +96,8 @@ export default class UserScreen extends React.Component {
   }
 
   _save(newToken) {
-    Realm.open(Schema).then(realm => {
-      realm.write(() => {
-        realm.create(UserSchema.name, {
-          id: LoginStore.getUserId(),
-          token: newToken,
-        }, true)
-        LoginStore.setUserToken(newToken)
-        if (!newToken) {
-          const {navigation} = this.props
-          navigation.navigate('Login', {isSignout: true})
-        }
-      })
-    })
-  }
-
-  _signout() {
-    this._save("")
+    const {navigation} = this.props
+    save(newToken, navigation)
   }
 
   render() {
@@ -159,14 +168,6 @@ export default class UserScreen extends React.Component {
             || !!this.state.oldTokenValidationMessage
             || !!this.state.newTokenValidationMessage
             || !!this.state.confirmNewTokenValidationMessage}
-        />
-        <Divider style={{height:16, backgroundColor: "white"}}/>
-        <Button
-          title="Sign out"
-          large
-          backgroundColor="gold"
-          disabled={this.state.sending}
-          onPress={() => this._signout()}
         />
       </View>
     )
