@@ -19,6 +19,7 @@ import {
 } from '../store/Schema'
 import LoginStore from '../store/LoginStore';
 import { updateToken } from '../PixelaApi';
+import { validateTokens, validateToken } from '../PixelaValidator';
 
 export default class UserScreen extends React.Component {
 
