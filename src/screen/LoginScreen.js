@@ -12,9 +12,6 @@ import {
   FormLabel,
   FormInput,
 } from 'react-native-elements'
-import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition'
 import Realm from 'realm'
 import {
   UserSchema,
@@ -25,11 +22,7 @@ import {
   getGraphs,
 } from '../PixelaApi'
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
-export default class LoginScreen extends Component<Prop> {
+export default class LoginScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
         title: "Pixelarn - Login"

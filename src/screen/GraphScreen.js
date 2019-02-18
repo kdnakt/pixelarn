@@ -15,9 +15,6 @@ import {
 import {
   HeaderBackButton,
 } from 'react-navigation'
-import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition'
 import DatePicker from 'react-native-datepicker'
 import Pixela from './pixela/Pixela'
 import LoginStore from '../store/LoginStore'
@@ -27,10 +24,6 @@ import {
   getGraph,
 } from '../PixelaApi'
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
 getDateStr = (today) => {
   return today.getFullYear()
       + "-"
@@ -39,7 +32,7 @@ getDateStr = (today) => {
       + today.getDate()
 }
 
-export default class GraphScreen extends Component<Prop> {
+export default class GraphScreen extends Component {
   static navigationOptions = ({navigation}) => {
     const id = navigation.getParam('graphId'),
       graph = LoginStore.getGraph(id)

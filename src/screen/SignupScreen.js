@@ -15,9 +15,6 @@ import {
   FormValidationMessage,
   ListItem,
 } from 'react-native-elements'
-import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition'
 import Realm from 'realm'
 import {
   UserSchema,
@@ -27,11 +24,7 @@ import LoginStore from '../store/LoginStore'
 import { createUser } from '../PixelaApi';
 import { validateId } from '../PixelaValidator';
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
-export default class SignupScreen extends Component<Prop> {
+export default class SignupScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
         title: "Pixelarn - Sign Up"
