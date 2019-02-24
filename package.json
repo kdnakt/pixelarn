@@ -16,7 +16,7 @@
     "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.3.0",
     "react-navigation-stack": "^1.0.10",
-    "realm": "^2.23.0"
+    "realm": "^2.22.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
