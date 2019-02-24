@@ -15,17 +15,10 @@ import {
 } from 'react-native-elements'
 import LoginStore from '../store/LoginStore'
 import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition';
-import {
   getGraphs,
 } from '../PixelaApi'
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
-export default class GraphListScreen extends Component<Prop> {
+export default class GraphListScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
         title: 'GRAPH LIST',
@@ -48,7 +41,7 @@ export default class GraphListScreen extends Component<Prop> {
     }
   }
 
-  constructor(props: Prop) {
+  constructor(props) {
     super(props)
     this.state = {
       refreshing: false,

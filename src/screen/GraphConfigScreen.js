@@ -23,7 +23,7 @@ import {
   updateGraph,
 } from '../PixelaApi'
 
-export default class GraphEditScreen extends Component<Prop> {
+export default class GraphEditScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: 'CONFIG',

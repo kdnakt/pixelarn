@@ -13,25 +13,18 @@ import {
   FormInput,
   FormValidationMessage,
 } from 'react-native-elements'
-import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition';
 import LoginStore from '../store/LoginStore'
 import { createGraph } from '../PixelaApi';
 import { validateId } from '../PixelaValidator';
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
-export default class GraphEditScreen extends Component<Prop> {
+export default class GraphEditScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
         title: 'CREATE',
     }
   }
 
-  constructor(props: Prop) {
+  constructor(props) {
     super(props)
     this.state = {
       graphId: null,
