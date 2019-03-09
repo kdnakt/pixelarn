@@ -153,7 +153,7 @@ export default class SignupScreen extends Component {
         <Button
           title="Sign Up"
           large
-          backgroundColor="gold"
+          buttonStyle={{backgroundColor:"gold"}}
           disabled={!this.state.agree || !this.state.notMinor || !this.state.readTerms}
           onPress={() => this._send()}
         />

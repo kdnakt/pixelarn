@@ -75,7 +75,7 @@ export default class GraphEditScreen extends Component {
         <Button
           title="Create"
           large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced'}}
           disabled={!this.state.graphId || !this.state.graphName}
           onPress={() => this._sendRequest()}
         />

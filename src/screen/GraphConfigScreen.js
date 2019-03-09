@@ -141,7 +141,7 @@ export default class GraphEditScreen extends Component<Prop> {
         <Button
           title="Update"
           large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced'}}
           disabled={!graph.name || !this.state.changed}
           onPress={() => this._sendRequest()}
         />

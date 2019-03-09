@@ -110,7 +110,7 @@ export default class LoginScreen extends Component {
         <Button
           title={isAutoLogin ? "Loading..." : "Login"}
           large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced'}}
           onPress={() => this._send()}
           disabled={(!this.state.userId || !this.state.userToken) || isAutoLogin}
         />
@@ -118,7 +118,7 @@ export default class LoginScreen extends Component {
         <Button
           title="Sign Up"
           large
-          backgroundColor="gold"
+          buttonStyle={{backgroundColor:"gold"}}
           onPress={() => this._signup()}
         />
       </View>

@@ -151,7 +151,7 @@ export default class UserScreen extends React.Component {
         <Button
           title="Update token"
           large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced'}}
           onPress={() => this._send()}
           disabled={
             !this.state.oldToken
