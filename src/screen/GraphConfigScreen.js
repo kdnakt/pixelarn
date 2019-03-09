@@ -3,14 +3,14 @@ import React, {
 } from 'react'
 import {
   Alert,
+  Text,
   View,
 } from 'react-native'
 import {
   Button,
   Icon,
   CheckBox,
-  FormLabel,
-  FormInput,
+  Input,
   FormValidationMessage,
 } from 'react-native-elements'
 import {
@@ -113,19 +113,15 @@ export default class GraphEditScreen extends Component<Prop> {
     const graph = this.state.graph
     return (
       <View>
-        <FormLabel>Graph Name (Required)</FormLabel>
-        <FormInput
+        <Input
+          label="Graph Name (Required)"
           value={graph.name}
           onChangeText={(text) => this.newState({name: text})}
+          errorMessage={!this.state.graph.name ? "Required" : ""}
         />
-        <FormValidationMessage
-          containerStyle={!this.state.graph.name ? {} : {display: 'none'}}
-        >
-          Required
-        </FormValidationMessage>
-        <FormLabel>Color</FormLabel>
+        <Text>Color</Text>
         {this.renderColorRadio()}
-        <FormLabel>Timezone</FormLabel>
+        <Text>Timezone</Text>
         <CheckBox
           title='Asia/Tokyo'
           checkedColor='#00aced'

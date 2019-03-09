@@ -9,30 +9,20 @@ import {
 import {
   Button,
   Divider,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
+  Input,
 } from 'react-native-elements'
-import {
-  type NavigationScreenProp,
-} from 'react-navigation/src/TypeDefinition';
 import LoginStore from '../store/LoginStore'
 import { createGraph } from '../PixelaApi';
 import { validateId } from '../PixelaValidator';
 
-type Prop = {
-  navigation: NavigationScreenProp<*>,
-}
-
-export default class GraphEditScreen extends Component<Prop> {
+export default class GraphEditScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
         title: 'CREATE',
     }
   }
 
-  constructor(props: Prop) {
-    super(props)
+  constructor() {
     this.state = {
       graphId: null,
       graphName: null,
@@ -63,8 +53,8 @@ export default class GraphEditScreen extends Component<Prop> {
       graphs = navigation.getParam('graphs')
     return (
       <View style={styles.container}>
-        <FormLabel>Graph Id</FormLabel>
-        <FormInput
+        <Input
+          label="Graph Id"
           placeholder={"Enter new graph id"}
           maxLength={17}
           autoCapitalize={"none"}
@@ -74,12 +64,10 @@ export default class GraphEditScreen extends Component<Prop> {
             graphIdValidationMessage: validateId(text),
           })}
           value={this.state.graphId}
+          errorMessage={this.state.graphIdValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.graphIdValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>Graph Name</FormLabel>
-        <FormInput
+        <Input
+          label="Graph Name"
           placeholder={"Enter new graph name"}
           onChangeText={(text) => this.setState({graphName:text})}
         />

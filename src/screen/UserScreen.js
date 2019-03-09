@@ -7,9 +7,7 @@ import {
 import {
   Button,
   Icon,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
+  Input,
 } from 'react-native-elements'
 import Realm from 'realm'
 import {
@@ -103,13 +101,13 @@ export default class UserScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FormLabel>User Id</FormLabel>
-        <FormInput
+        <Input
+          label="User Id"
           editable={false}
           value={LoginStore.getUserId()}
         />
-        <FormLabel>Old Token</FormLabel>
-        <FormInput
+        <Input
+          label="Old Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -120,12 +118,10 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.oldToken}
+          errorMessage={this.state.oldTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.oldTokenValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>New Token</FormLabel>
-        <FormInput
+        <Input
+          label="New Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -136,12 +132,10 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.newToken}
+          errorMessage={this.state.newTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.newTokenValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>Confirm New Token</FormLabel>
-        <FormInput
+        <Input
+          label="Confirm New Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -152,10 +146,8 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.confirmNewToken}
+          errorMessage={this.state.confirmNewTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.confirmNewTokenValidationMessage}
-        </FormValidationMessage>
         <Button
           title="Update token"
           large

@@ -9,8 +9,7 @@ import {
 import {
   Button,
   Divider,
-  FormLabel,
-  FormInput,
+  Input,
 } from 'react-native-elements'
 import Realm from 'realm'
 import {
@@ -92,15 +91,15 @@ export default class LoginScreen extends Component {
         isAutoLogin = this.state.userExists && !isSignout
     return (
       <View style={styles.container}>
-        <FormLabel>User Id</FormLabel>
-        <FormInput
+        <Input
+          label="User Id"
           placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
           value={this.state.userId}
         />
-        <FormLabel>User Token</FormLabel>
-        <FormInput
+        <Input
+          label="User Token"
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
