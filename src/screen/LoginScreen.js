@@ -98,6 +98,7 @@ export default class LoginScreen extends Component {
           onChangeText={(text) => this.setState({userId:text})}
           value={this.state.userId}
         />
+        <Divider style={{height:16, backgroundColor: 'white'}} />
         <Input
           label="User Token"
           placeholder={"Please enter your user token"}
