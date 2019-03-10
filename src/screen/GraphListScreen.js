@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native'
 import {
-  List,
   ListItem,
   Icon,
 } from 'react-native-elements'
@@ -41,6 +40,7 @@ export default class GraphListScreen extends Component {
   }
 
   constructor() {
+    super()
     this.state = {
       refreshing: false,
     }
@@ -91,13 +91,11 @@ export default class GraphListScreen extends Component {
             />
           }
         >
-          <List>
-            <FlatList
-              data={graphs}
-              keyExtractor={(item, index) => item.id}
-              renderItem={(item) => this.renderItem(item)}
-            />
-          </List>
+          <FlatList
+            data={graphs}
+            keyExtractor={(item, index) => item.id}
+            renderItem={(item) => this.renderItem(item)}
+          />
         </ScrollView>
       </View>
     )
