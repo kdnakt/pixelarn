@@ -38,9 +38,8 @@ export default class GraphListScreen extends Component {
         )
     }
   }
-
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       refreshing: false,
     }

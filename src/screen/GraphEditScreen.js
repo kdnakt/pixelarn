@@ -22,7 +22,8 @@ export default class GraphEditScreen extends Component {
     }
   }
 
-  constructor() {
+  constructor(props) {
+    super(props)
     this.state = {
       graphId: null,
       graphName: null,
