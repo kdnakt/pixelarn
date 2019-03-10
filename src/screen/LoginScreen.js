@@ -10,12 +10,15 @@ import {
   Button,
   Divider,
   Input,
+  Icon,
+  Overlay,
 } from 'react-native-elements'
 import Realm from 'realm'
 import {
   UserSchema,
   Schema,
 } from '../store/Schema'
+import UserList from './UserList'
 import LoginStore from '../store/LoginStore'
 import {
   getGraphs,
@@ -34,6 +37,8 @@ export default class LoginScreen extends Component {
       userId: null,
       userToken: null,
       userExists: false,
+      openUsersModal: false,
+      users: [],
     }
   }
 
@@ -46,6 +51,7 @@ export default class LoginScreen extends Component {
           userToken: users[0].token,
           isUpdate: true,
           userExists: !!users[0].id && !!users[0].token,
+          users: users,
         }, () => {
           if (users[0].token) this._send(true)
         })
@@ -97,6 +103,11 @@ export default class LoginScreen extends Component {
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
           value={this.state.userId}
+          rightIcon={<Icon
+            name="users"
+            type="font-awesome"
+            onPress={() => this.setState({openUsersModal: true})}
+          />}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Input
@@ -121,6 +132,12 @@ export default class LoginScreen extends Component {
           titleStyle={{fontSize: 24}}
           onPress={() => this._signup()}
         />
+        <Overlay
+          isVisible={this.state.openUsersModal}
+          onBackdropPress={() => this.setState({openUsersModal: false})}
+        >
+          <UserList users={this.state.users} />
+        </Overlay>
       </View>
     )
   }
