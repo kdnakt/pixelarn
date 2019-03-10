@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import {
   Button,
+  Divider,
   Icon,
   Input,
 } from 'react-native-elements'
@@ -106,6 +107,7 @@ export default class UserScreen extends React.Component {
           editable={false}
           value={LoginStore.getUserId()}
         />
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
         <Input
           label="Old Token"
           secureTextEntry={true}
@@ -120,6 +122,7 @@ export default class UserScreen extends React.Component {
           value={this.state.oldToken}
           errorMessage={this.state.oldTokenValidationMessage}
         />
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
         <Input
           label="New Token"
           secureTextEntry={true}
@@ -134,6 +137,7 @@ export default class UserScreen extends React.Component {
           value={this.state.newToken}
           errorMessage={this.state.newTokenValidationMessage}
         />
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
         <Input
           label="Confirm New Token"
           secureTextEntry={true}
@@ -148,6 +152,7 @@ export default class UserScreen extends React.Component {
           value={this.state.confirmNewToken}
           errorMessage={this.state.confirmNewTokenValidationMessage}
         />
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
         <Button
           title="Update token"
           buttonStyle={{backgroundColor:'#00aced', padding: 16}}
