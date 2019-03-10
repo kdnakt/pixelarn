@@ -159,9 +159,9 @@ export default class GraphScreen extends Component {
         />
         <Button
           title="Commit"
-          large
           style={styles.button}
-          buttonStyle={{backgroundColor:'#00aced'}}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._commit()}
         />
       </Card>

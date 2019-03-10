@@ -109,16 +109,16 @@ export default class LoginScreen extends Component {
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title={isAutoLogin ? "Loading..." : "Login"}
-          large
-          buttonStyle={{backgroundColor:'#00aced'}}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._send()}
           disabled={(!this.state.userId || !this.state.userToken) || isAutoLogin}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Sign Up"
-          large
-          buttonStyle={{backgroundColor:"gold"}}
+          buttonStyle={{backgroundColor:"gold", padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._signup()}
         />
       </View>

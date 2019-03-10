@@ -74,8 +74,8 @@ export default class GraphEditScreen extends Component {
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Create"
-          large
-          buttonStyle={{backgroundColor:'#00aced'}}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           disabled={!this.state.graphId || !this.state.graphName}
           onPress={() => this._sendRequest()}
         />

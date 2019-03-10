@@ -152,8 +152,8 @@ export default class SignupScreen extends Component {
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Sign Up"
-          large
-          buttonStyle={{backgroundColor:"gold"}}
+          buttonStyle={{backgroundColor:"gold", padding: 16}}
+          titleStyle={{fontSize: 24}}
           disabled={!this.state.agree || !this.state.notMinor || !this.state.readTerms}
           onPress={() => this._send()}
         />

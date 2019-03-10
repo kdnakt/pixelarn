@@ -140,8 +140,8 @@ export default class GraphEditScreen extends Component<Prop> {
         />
         <Button
           title="Update"
-          large
-          buttonStyle={{backgroundColor:'#00aced'}}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           disabled={!graph.name || !this.state.changed}
           onPress={() => this._sendRequest()}
         />
