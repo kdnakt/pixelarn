@@ -10,7 +10,7 @@ import {
   Card,
   Button,
   Icon,
-  FormInput,
+  Input,
 } from 'react-native-elements'
 import {
   HeaderBackButton,
@@ -152,16 +152,16 @@ export default class GraphScreen extends Component {
           minDate={this.state.minDate}
           onDateChange={(dateStr) => this.setState({targetDate: dateStr})}
         />
-        <FormInput
+        <Input
           keyboardType={"numeric"}
           containerStyle={styles.count}
           value={`${this.state.targetValue}`}
         />
         <Button
           title="Commit"
-          large
           style={styles.button}
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._commit()}
         />
       </Card>

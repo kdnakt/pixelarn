@@ -6,10 +6,9 @@ import {
 } from 'react-native'
 import {
   Button,
+  Divider,
   Icon,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
+  Input,
 } from 'react-native-elements'
 import Realm from 'realm'
 import {
@@ -103,13 +102,14 @@ export default class UserScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FormLabel>User Id</FormLabel>
-        <FormInput
+        <Input
+          label="User Id"
           editable={false}
           value={LoginStore.getUserId()}
         />
-        <FormLabel>Old Token</FormLabel>
-        <FormInput
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
+        <Input
+          label="Old Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -120,12 +120,11 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.oldToken}
+          errorMessage={this.state.oldTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.oldTokenValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>New Token</FormLabel>
-        <FormInput
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
+        <Input
+          label="New Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -136,12 +135,11 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.newToken}
+          errorMessage={this.state.newTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.newTokenValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>Confirm New Token</FormLabel>
-        <FormInput
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
+        <Input
+          label="Confirm New Token"
           secureTextEntry={true}
           maxLength={128}
           keyboardType={"email-address"}
@@ -152,14 +150,13 @@ export default class UserScreen extends React.Component {
             })
           }}
           value={this.state.confirmNewToken}
+          errorMessage={this.state.confirmNewTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.confirmNewTokenValidationMessage}
-        </FormValidationMessage>
+        <Divider style={{height: 16, backgroundColor: 'white'}}/>
         <Button
           title="Update token"
-          large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._send()}
           disabled={
             !this.state.oldToken

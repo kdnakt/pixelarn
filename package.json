@@ -11,11 +11,11 @@
     "react": "16.6.1",
     "react-native": "^0.58.5",
     "react-native-datepicker": "^1.7.2",
-    "react-native-elements": "^1.0.0",
-    "react-native-svg": "^8.0.10",
-    "react-native-vector-icons": "^6.3.0",
-    "react-navigation": "^3.3.0",
-    "react-navigation-stack": "^1.0.10",
+    "react-native-elements": "^1.1.0",
+    "react-native-svg": "^8.0.8",
+    "react-native-vector-icons": "^6.1.0",
+    "react-navigation": "^3.0.2",
+    "react-navigation-stack": "^1.0.4",
     "realm": "^2.22.0"
   },
   "devDependencies": {

@@ -9,8 +9,7 @@ import {
 import {
   Button,
   Divider,
-  FormLabel,
-  FormInput,
+  Input,
 } from 'react-native-elements'
 import Realm from 'realm'
 import {
@@ -92,15 +91,16 @@ export default class LoginScreen extends Component {
         isAutoLogin = this.state.userExists && !isSignout
     return (
       <View style={styles.container}>
-        <FormLabel>User Id</FormLabel>
-        <FormInput
+        <Input
+          label="User Id"
           placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
           onChangeText={(text) => this.setState({userId:text})}
           value={this.state.userId}
         />
-        <FormLabel>User Token</FormLabel>
-        <FormInput
+        <Divider style={{height:16, backgroundColor: 'white'}} />
+        <Input
+          label="User Token"
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
           onChangeText={(text) => this.setState({userToken:text})}
@@ -109,16 +109,16 @@ export default class LoginScreen extends Component {
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title={isAutoLogin ? "Loading..." : "Login"}
-          large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._send()}
           disabled={(!this.state.userId || !this.state.userToken) || isAutoLogin}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Sign Up"
-          large
-          backgroundColor="gold"
+          buttonStyle={{backgroundColor:"gold", padding: 16}}
+          titleStyle={{fontSize: 24}}
           onPress={() => this._signup()}
         />
       </View>

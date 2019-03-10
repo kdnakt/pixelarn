@@ -9,9 +9,7 @@ import {
 import {
   Button,
   Divider,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
+  Input,
 } from 'react-native-elements'
 import LoginStore from '../store/LoginStore'
 import { createGraph } from '../PixelaApi';
@@ -56,8 +54,8 @@ export default class GraphEditScreen extends Component {
       graphs = navigation.getParam('graphs')
     return (
       <View style={styles.container}>
-        <FormLabel>Graph Id</FormLabel>
-        <FormInput
+        <Input
+          label="Graph Id"
           placeholder={"Enter new graph id"}
           maxLength={17}
           autoCapitalize={"none"}
@@ -67,20 +65,18 @@ export default class GraphEditScreen extends Component {
             graphIdValidationMessage: validateId(text),
           })}
           value={this.state.graphId}
+          errorMessage={this.state.graphIdValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.graphIdValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>Graph Name</FormLabel>
-        <FormInput
+        <Input
+          label="Graph Name"
           placeholder={"Enter new graph name"}
           onChangeText={(text) => this.setState({graphName:text})}
         />
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Create"
-          large
-          backgroundColor={'#00aced'}
+          buttonStyle={{backgroundColor:'#00aced', padding: 16}}
+          titleStyle={{fontSize: 24}}
           disabled={!this.state.graphId || !this.state.graphName}
           onPress={() => this._sendRequest()}
         />

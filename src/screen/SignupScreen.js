@@ -10,9 +10,7 @@ import {
   Button,
   CheckBox,
   Divider,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
+  Input,
   ListItem,
 } from 'react-native-elements'
 import Realm from 'realm'
@@ -84,8 +82,8 @@ export default class SignupScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <FormLabel>User Id</FormLabel>
-        <FormInput
+        <Input
+          label="User Id"
           placeholder={"Please enter your user id"}
           autoCapitalize={"none"}
           keyboardType={"default"}
@@ -95,12 +93,10 @@ export default class SignupScreen extends Component {
             userIdValidationMessage: validateId(text),
           })}
           value={this.state.userId}
+          errorMessage={this.state.userIdValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.userIdValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>User Token</FormLabel>
-        <FormInput
+        <Input
+          label="User Token"
           placeholder={"Please enter your user token"}
           secureTextEntry={true}
           maxLength={128}
@@ -112,12 +108,10 @@ export default class SignupScreen extends Component {
             })
           }}
           value={this.state.userToken}
+          errorMessage={this.state.userTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.userTokenValidationMessage}
-        </FormValidationMessage>
-        <FormLabel>Confirm User Token</FormLabel>
-        <FormInput
+        <Input
+          label="Confirm User Token"
           placeholder={"Please enter your user token again"}
           secureTextEntry={true}
           maxLength={128}
@@ -129,10 +123,8 @@ export default class SignupScreen extends Component {
             })
           }}
           value={this.state.confirmUserToken}
+          errorMessage={this.state.confirmUserTokenValidationMessage}
         />
-        <FormValidationMessage>
-          {this.state.confirmUserTokenValidationMessage}
-        </FormValidationMessage>
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <ListItem
           title="Terms of Service (English)"
@@ -160,8 +152,8 @@ export default class SignupScreen extends Component {
         <Divider style={{height:16, backgroundColor: 'white'}} />
         <Button
           title="Sign Up"
-          large
-          backgroundColor="gold"
+          buttonStyle={{backgroundColor:"gold", padding: 16}}
+          titleStyle={{fontSize: 24}}
           disabled={!this.state.agree || !this.state.notMinor || !this.state.readTerms}
           onPress={() => this._send()}
         />

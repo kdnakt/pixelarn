@@ -3,13 +3,11 @@ import React, {
 } from 'react'
 import {
   FlatList,
-  StyleSheet,
   ScrollView,
   RefreshControl,
   View,
 } from 'react-native'
 import {
-  List,
   ListItem,
   Icon,
 } from 'react-native-elements'
@@ -40,7 +38,6 @@ export default class GraphListScreen extends Component {
         )
     }
   }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -93,29 +90,14 @@ export default class GraphListScreen extends Component {
             />
           }
         >
-          <List>
-            <FlatList
-              data={graphs}
-              keyExtractor={(item, index) => item.id}
-              renderItem={(item) => this.renderItem(item)}
-            />
-          </List>
+          <FlatList
+            data={graphs}
+            keyExtractor={(item, index) => item.id}
+            renderItem={(item) => this.renderItem(item)}
+          />
         </ScrollView>
       </View>
     )
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  text: {
-    margin: 10,
-  }
-});
-    
