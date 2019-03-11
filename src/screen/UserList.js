@@ -4,6 +4,7 @@ import {
   FlatList,
   View,
 } from 'react-native'
+import { ListItem } from 'react-native-elements';
 
 export default class UserList extends React.Component {
 
@@ -14,13 +15,17 @@ export default class UserList extends React.Component {
   renderItem(user) {
     console.log(user)
     return (
-      <Text>{user.item.id}</Text>
+      <ListItem
+        leftIcon={{name: 'user', type: 'font-awesome'}}
+        title={user.item.id}
+      />
     )    
   }
 
   render() {
     return (
       <View>
+        <Text>Select a user to log in</Text>
         <FlatList
           data={this.props.users}
           keyExtractor={(item, _) => item.id}
