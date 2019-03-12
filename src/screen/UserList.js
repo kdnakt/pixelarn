@@ -13,7 +13,6 @@ export default class UserList extends React.Component {
   }
 
   renderItem(user) {
-    console.log(user)
     return (
       <ListItem
         leftIcon={{name: 'user', type: 'font-awesome'}}
